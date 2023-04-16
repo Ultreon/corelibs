@@ -224,6 +224,7 @@ public class ResourceManager {
         List<byte[]> data = new ArrayList<>();
         for (ResourcePackage resourcePackage : resourcePackages) {
             Resource resource = resourcePackage.get(id);
+            if (resource == null) continue;
             byte[] bytes = resource.loadOrGet();
             if (bytes == null) continue;
 
