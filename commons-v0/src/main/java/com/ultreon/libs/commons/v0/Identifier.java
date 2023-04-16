@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public final class Identifier {
     private final @NotNull String location;
     private final @NotNull String path;
-    private static String defaultNamespace = "";
+    private static String defaultNamespace = "default";
     private static boolean defaultSet = false;
 
     public synchronized static void setDefaultNamespace(String defaultNamespace) {
