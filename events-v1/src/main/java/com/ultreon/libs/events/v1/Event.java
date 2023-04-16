@@ -71,13 +71,13 @@ public final class Event<T> {
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
-    public static <T> Event<T> withCompound(T... typeGetter) {
+    public static <T> Event<T> withValue(T... typeGetter) {
         if (typeGetter.length != 0) throw new IllegalStateException("The array shouldn't contain anything!");
-        return withCompound((Class<T>) typeGetter.getClass().getComponentType());
+        return withValue((Class<T>) typeGetter.getClass().getComponentType());
     }
 
     @SuppressWarnings({"unchecked"})
-    public static <T> Event<T> withCompound(Class<T> clazz) {
+    public static <T> Event<T> withValue(Class<T> clazz) {
         return new Event<>(listeners -> (T) Proxy.newProxyInstance(Event.class.getClassLoader(), new Class[]{clazz}, new AbstractInvocationHandler() {
             @Override
             protected Object handleInvocation(@NotNull Object proxy, @NotNull Method method, Object @NotNull [] args) throws Throwable {
@@ -94,13 +94,13 @@ public final class Event<T> {
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
-    public static <T> Event<T> withCancel(T... typeGetter) {
+    public static <T> Event<T> cancelable(T... typeGetter) {
         if (typeGetter.length != 0) throw new IllegalStateException("The array shouldn't contain anything!");
-        return withCancel((Class<T>) typeGetter.getClass().getComponentType());
+        return cancelable((Class<T>) typeGetter.getClass().getComponentType());
     }
 
     @SuppressWarnings({"unchecked"})
-    public static <T> Event<T> withCancel(Class<T> clazz) {
+    public static <T> Event<T> cancelable(Class<T> clazz) {
         return new Event<>(listeners -> (T) Proxy.newProxyInstance(Event.class.getClassLoader(), new Class[]{clazz}, new AbstractInvocationHandler() {
             @Override
             protected Object handleInvocation(@NotNull Object proxy, @NotNull Method method, Object @NotNull [] args) throws Throwable {
