@@ -4,15 +4,15 @@ package com.ultreon.libs.commons.v0;
  * @author Qboi
  */
 public class ProgressMessenger extends Progress {
-    private final MessengerImpl messenger;
+    private final Messenger messenger;
 
-    public ProgressMessenger(MessengerImpl messenger, int progress, int max) {
-        super(progress, max);
+    public ProgressMessenger(Messenger messenger, int max) {
+        super(max);
         this.messenger = messenger;
     }
 
-    public ProgressMessenger(MessengerImpl messenger, int max) {
-        super(max);
+    public ProgressMessenger(Messenger messenger, int progress, int max) {
+        super(progress, max);
         this.messenger = messenger;
     }
 
