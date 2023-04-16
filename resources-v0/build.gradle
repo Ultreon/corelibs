@@ -1,0 +1,7 @@
+version '0.1.0'
+
+dependencies {
+
+    implementation project(":functions-v0")
+    implementation project(":commons-v0")
+}

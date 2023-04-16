@@ -1,0 +1,12 @@
+version '0.1.0'
+
+dependencies {
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    implementation project(":functions-v0")
+    implementation project(":commons-v0")
+    implementation project(":resources-v0")
+    implementation project(":collections-v0")
+    implementation project(":events-v1")
+    implementation project(":registries-v0")
+}

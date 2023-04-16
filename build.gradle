@@ -1,0 +1,44 @@
+group 'com.ultreon'
+version '0.1.0'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: "java-library"
+    apply plugin: 'maven-publish'
+
+    group 'org.ultreon.libs'
+
+    archivesBaseName = "corelibs-$project.name"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.0"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.0"
+
+        implementation "org.jetbrains:annotations:$annotations_version"
+    }
+
+    processResources {
+        from file("$rootProject.projectDir/LICENSE.md")
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
+}

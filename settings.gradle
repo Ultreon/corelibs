@@ -1,0 +1,13 @@
+rootProject.name = 'corelibs'
+
+include "events-v0"
+include "events-v1"
+include "commons-v0"
+include "datetime-v0"
+include "collections-v0"
+include "functions-v0"
+include "registries-v0"
+include "resources-v0"
+include "translations-v0"
+include "text-v0"
+include "crash-v0"

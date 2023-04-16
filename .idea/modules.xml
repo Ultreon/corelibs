@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/collections-v0/corelibs.collections-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/collections-v0/corelibs.collections-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/collections-v0/corelibs.collections-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/collections-v0/corelibs.collections-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commons-v0/corelibs.commons-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/commons-v0/corelibs.commons-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commons-v0/corelibs.commons-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/commons-v0/corelibs.commons-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crash-v0/corelibs.crash-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/crash-v0/corelibs.crash-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datetime-v0/corelibs.datetime-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/datetime-v0/corelibs.datetime-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datetime-v0/corelibs.datetime-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/datetime-v0/corelibs.datetime-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/events-v1/corelibs.events-v1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/events-v1/corelibs.events-v1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/events-v1/corelibs.events-v1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/events-v1/corelibs.events-v1.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/functions-v0/corelibs.functions-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/functions-v0/corelibs.functions-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/functions-v0/corelibs.functions-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/functions-v0/corelibs.functions-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/registries-v0/corelibs.registries-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/registries-v0/corelibs.registries-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/registries-v0/corelibs.registries-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/registries-v0/corelibs.registries-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/resources-v0/corelibs.resources-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/resources-v0/corelibs.resources-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/resources-v0/corelibs.resources-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/resources-v0/corelibs.resources-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/text-v0/corelibs.text-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/text-v0/corelibs.text-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/text-v0/corelibs.text-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/text-v0/corelibs.text-v0.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/translations-v0/corelibs.translations-v0.main.iml" filepath="$PROJECT_DIR$/.idea/modules/translations-v0/corelibs.translations-v0.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/translations-v0/corelibs.translations-v0.test.iml" filepath="$PROJECT_DIR$/.idea/modules/translations-v0/corelibs.translations-v0.test.iml" />
+    </modules>
+  </component>
+</project>
