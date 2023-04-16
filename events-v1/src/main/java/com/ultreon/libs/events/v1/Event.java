@@ -115,26 +115,6 @@ public final class Event<T> {
         }));
     }
 
-    @SafeVarargs
-    @SuppressWarnings("unchecked")
-    public static <T> Event<T> simple(T... typeGetter) {
-        if (typeGetter.length != 0) throw new IllegalStateException("The array shouldn't contain anything!");
-        return simple((Class<T>) typeGetter.getClass().getComponentType());
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public static <T> Event<T> simple(Class<T> clazz) {
-        return new Event<>(listeners -> (T) Proxy.newProxyInstance(Event.class.getClassLoader(), new Class[]{clazz}, new AbstractInvocationHandler() {
-            @Override
-            protected Object handleInvocation(@NotNull Object proxy, @NotNull Method method, Object @NotNull [] args) throws Throwable {
-                for (T listener : listeners) {
-                    Objects.requireNonNull(invokeMethod(listener, method, args));
-                }
-                return null;
-            }
-        }));
-    }
-
     @SuppressWarnings("unchecked")
     private static <T, R> R invokeMethod(T listener, Method method, Object[] args) throws Throwable {
         return (R) MethodHandles.lookup().unreflect(method)

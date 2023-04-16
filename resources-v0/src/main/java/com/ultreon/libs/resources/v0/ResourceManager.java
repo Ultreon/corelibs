@@ -4,6 +4,7 @@ import com.ultreon.libs.commons.v0.Identifier;
 import com.ultreon.libs.commons.v0.Logger;
 import com.ultreon.libs.commons.v0.exceptions.SyntaxException;
 import com.ultreon.libs.functions.v0.misc.ThrowingSupplier;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -203,13 +204,14 @@ public class ResourceManager {
         }
     }
 
-    public List<byte[]> getAllDataByPath(String path) {
+    @NotNull
+    public List<byte[]> getAllDataByPath(@NotNull String path) {
         List<byte[]> data = new ArrayList<>();
-        for (ResourcePackage resourcePackage : resourcePackages) {
-            Map<Identifier, Resource> identifierResourceMap = resourcePackage.mapEntries();
-            for (Map.Entry<Identifier, Resource> entry : identifierResourceMap.entrySet()) {
+        for (var resourcePackage : resourcePackages) {
+            var identifierResourceMap = resourcePackage.mapEntries();
+            for (var entry : identifierResourceMap.entrySet()) {
                 if (entry.getKey().path().equals(path)) {
-                    byte[] bytes = entry.getValue().loadOrGet();
+                    var bytes = entry.getValue().loadOrGet();
                     if (bytes == null) continue;
 
                     data.add(entry.getValue().getData());
@@ -220,15 +222,21 @@ public class ResourceManager {
         return data;
     }
 
-    public List<byte[]> getAllDataById(Identifier id) {
+    @NotNull
+    public List<byte[]> getAllDataById(@NotNull Identifier id) {
         List<byte[]> data = new ArrayList<>();
-        for (ResourcePackage resourcePackage : resourcePackages) {
-            Resource resource = resourcePackage.get(id);
-            if (resource == null) continue;
-            byte[] bytes = resource.loadOrGet();
-            if (bytes == null) continue;
+        for (var resourcePackage : resourcePackages) {
+            var identifierResourceMap = resourcePackage.mapEntries();
+            for (var entry : identifierResourceMap.entrySet()) {
+                if (entry.getKey().equals(id)) {
+                    var resource = entry.getValue();
+                    if (resource == null) continue;
+                    var bytes = resource.loadOrGet();
+                    if (bytes == null) continue;
 
-            data.add(resource.getData());
+                    data.add(resource.getData());
+                }
+            }
         }
 
         return data;
