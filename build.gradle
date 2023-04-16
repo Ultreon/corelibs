@@ -1,6 +1,6 @@
 apply plugin: 'maven-publish'
 
-group 'com.ultreon'
+group 'com.ultreon.corelibs'
 version '0.1.0'
 
 subprojects {
@@ -8,7 +8,7 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: 'maven-publish'
 
-    group 'org.ultreon.libs'
+    group 'com.ultreon.corelibs'
 
     archivesBaseName = "corelibs-$project.name"
 
@@ -35,10 +35,14 @@ subprojects {
         withSourcesJar()
     }
 
+    jar.archiveBaseName = "corelibs-$project.name"
+    sourcesJar.archiveBaseName = "corelibs-$project.name"
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
+                artifactId = "corelibs-$project.name"
             }
         }
     }
