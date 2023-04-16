@@ -5,8 +5,8 @@ import com.ultreon.libs.registries.v0.Registry;
 
 public class RegistryEvents {
 
-    public static final Event<RegistryDump> REGISTRY_DUMP = Event.simple();
-    public static final Event<AutoRegister> AUTO_REGISTER = Event.simple();
+    public static final Event<RegistryDump> REGISTRY_DUMP = Event.create();
+    public static final Event<AutoRegister> AUTO_REGISTER = Event.create();
 
     @FunctionalInterface
     public interface RegistryDump {
