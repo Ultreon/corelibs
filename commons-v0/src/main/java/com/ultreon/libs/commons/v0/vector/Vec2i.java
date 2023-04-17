@@ -148,9 +148,9 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     @Override
-    public Vec2f clone() {
+    public Vec2i clone() {
         try {
-            Vec2f clone = (Vec2f) super.clone();
+            Vec2i clone = (Vec2i) super.clone();
 
             clone.x = this.x;
             clone.y = this.y;
