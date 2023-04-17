@@ -37,8 +37,8 @@ public class LanguageManager {
 
     public Language load(Locale locale, Identifier id, ResourceManager resourceManager) {
         Gson gson = new Gson();
-        String s = "languages/" + id + ".json";
-        List<byte[]> assets = resourceManager.getAllDataById(id);
+        String newPath = "languages/" + id.path() + ".json";
+        List<byte[]> assets = resourceManager.getAllDataById(id.withPath(newPath));
         JsonObject json = new JsonObject();
         for (byte[] asset : assets) {
             JsonObject object = gson.fromJson(new StringReader(new String(asset, StandardCharsets.UTF_8)), JsonObject.class);
