@@ -87,7 +87,7 @@ public final class Event<T> {
                         return result;
                     }
                 }
-                return EventResult.pass();
+                return ValueEventResult.pass();
             }
         }));
     }
