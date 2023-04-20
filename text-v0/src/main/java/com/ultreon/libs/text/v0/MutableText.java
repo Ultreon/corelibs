@@ -42,72 +42,81 @@ public abstract class MutableText extends TextObject {
         return (Color) attrs.get(TextAttribute.FOREGROUND);
     }
 
-    public void setColor(Color color) {
+    public MutableText setColor(Color color) {
         this.attrs.put(TextAttribute.FOREGROUND, color);
+        return this;
     }
 
     public boolean isUnderlined() {
         return attrs.get(TextAttribute.UNDERLINE) != null;
     }
 
-    public void setUnderlined(boolean underlined) {
+    public MutableText setUnderlined(boolean underlined) {
         this.attrs.put(TextAttribute.FOREGROUND, underlined ? TextAttribute.UNDERLINE_LOW_ONE_PIXEL : null);
+        return this;
     }
 
     public boolean isStrikethrough() {
         return (boolean) attrs.get(TextAttribute.STRIKETHROUGH);
     }
 
-    public void setStrikethrough(boolean strikethrough) {
+    public MutableText setStrikethrough(boolean strikethrough) {
         this.attrs.put(TextAttribute.STRIKETHROUGH, strikethrough);
+        return this;
     }
 
     public boolean isLigaturesEnabled() {
         return Objects.equals(attrs.get(TextAttribute.LIGATURES), 1);
     }
 
-    public void setLigaturesEnabled(boolean ligaturesEnabled) {
+    public MutableText setLigaturesEnabled(boolean ligaturesEnabled) {
         this.attrs.put(TextAttribute.LIGATURES, ligaturesEnabled ? 1 : 0);
+        return this;
     }
 
     public double getSize() {
         return ((Number)attrs.get(TextAttribute.SIZE)).doubleValue();
     }
 
-    public void setSize(double size) {
+    public MutableText setSize(double size) {
         this.attrs.put(TextAttribute.SIZE, size);
+        return this;
     }
 
     public float getWidth() {
         return (float)attrs.get(TextAttribute.SIZE);
     }
 
-    public void setWidth(float size) {
+    public MutableText setWidth(float size) {
         this.attrs.put(TextAttribute.WIDTH, size);
+        return this;
     }
 
     public FontWidth getFontWidth() {
         return FontWidth.closestTo((float)attrs.get(TextAttribute.SIZE));
     }
 
-    public void setFontWidth(FontWidth width) {
+    public MutableText setFontWidth(FontWidth width) {
         this.attrs.put(TextAttribute.WIDTH, width.getWidth());
+        return this;
     }
 
     public float getWeight() {
         return (float) attrs.get(TextAttribute.WEIGHT);
     }
 
-    public void setWeight(float weight) {
+    public MutableText setWeight(float weight) {
         this.attrs.put(TextAttribute.WEIGHT, weight);
+        return this;
     }
 
     public @NotNull FontWeight getFontWeight() {
         return FontWeight.closestTo((float) attrs.get(TextAttribute.WEIGHT));
     }
 
-    public void setFontWeight(@NotNull FontWeight weight) {
+    public MutableText setFontWeight(@NotNull FontWeight weight) {
         this.attrs.put(TextAttribute.WEIGHT, weight.getWeight());
+        return this;
     }
 
     @Range(from = -7, to = 7)
@@ -115,8 +124,9 @@ public abstract class MutableText extends TextObject {
         return (int) attrs.get(TextAttribute.SUPERSCRIPT);
     }
 
-    public void setFontWeight(@Range(from = -7, to = 7) int superscript) {
+    public MutableText setFontWeight(@Range(from = -7, to = 7) int superscript) {
         this.attrs.put(TextAttribute.SUPERSCRIPT, superscript);
+        return this;
     }
 
     public Map<? extends Attribute, ?> getAttrs() {
@@ -125,6 +135,16 @@ public abstract class MutableText extends TextObject {
 
     public MutableText append(TextObject textObject) {
         extras.add(textObject);
+        return this;
+    }
+
+    public MutableText append(String text) {
+        extras.add(TextObject.nullToEmpty(text));
+        return this;
+    }
+
+    public MutableText append(Object o) {
+        extras.add(TextObject.nullToEmpty(String.valueOf(o)));
         return this;
     }
 }
