@@ -19,7 +19,8 @@ public abstract class MutableText extends TextObject {
     @Override
     public AttributedString getAttrString() {
         var builder = new AttributedStringBuilder();
-        builder.append(new AttributedString(createString(), getAttrs()));
+        String string = createString();
+        if (!string.isEmpty()) builder.append(new AttributedString(string, getAttrs()));
         for (TextObject extra : extras) {
             builder.append(extra.getAttrString());
         }
