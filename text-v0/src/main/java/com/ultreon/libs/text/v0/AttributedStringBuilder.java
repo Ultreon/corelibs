@@ -21,7 +21,7 @@ class AttributedStringBuilder {
         if (string == null) {
             return;
         }
-        this.builString = AttributedStringUtil.concat(this.builString, string, " ");
+        this.builString = AttributedStringUtil.concat(this.builString, string);
     }
 
     public AttributedString build() {
