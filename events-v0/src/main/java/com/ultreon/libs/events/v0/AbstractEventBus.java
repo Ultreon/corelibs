@@ -1,6 +1,6 @@
 package com.ultreon.libs.events.v0;
 
-import com.ultreon.libs.collections.v0.tuple.Pair;
+import com.ultreon.libs.commons.v0.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;

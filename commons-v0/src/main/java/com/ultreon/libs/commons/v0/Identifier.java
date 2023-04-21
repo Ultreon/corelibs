@@ -1,6 +1,6 @@
 package com.ultreon.libs.commons.v0;
 
-import com.ultreon.libs.collections.v0.tuple.Pair;
+import com.ultreon.libs.commons.v0.tuple.Pair;
 import com.ultreon.libs.commons.v0.exceptions.SyntaxException;
 import org.jetbrains.annotations.*;
 

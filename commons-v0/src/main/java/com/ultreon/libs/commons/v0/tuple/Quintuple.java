@@ -1,4 +1,4 @@
-package com.ultreon.libs.collections.v0.tuple;
+package com.ultreon.libs.commons.v0.tuple;
 
 import java.util.Objects;
 
