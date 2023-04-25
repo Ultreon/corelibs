@@ -21,7 +21,7 @@ import java.util.zip.ZipInputStream;
 public class ResourceManager {
     private final Map<Identifier, byte[]> assets = new ConcurrentHashMap<>();
     private final List<ResourcePackage> resourcePackages = new ArrayList<>();
-    private final Logger logger = (level, msg, t) -> {};
+    public static Logger logger = (level, msg, t) -> {};
     private final String root;
 
     public ResourceManager(String root) {

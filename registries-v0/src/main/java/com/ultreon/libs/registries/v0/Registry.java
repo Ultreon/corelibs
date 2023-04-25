@@ -12,7 +12,7 @@ import java.util.*;
 
 
 public class Registry<T> {
-    private static final Logger dumpLogger = (level, msg, t) -> {};
+    public static Logger dumpLogger = (level, msg, t) -> {};
     private static final OrderedHashMap<Class<?>, Registry<?>> REGISTRIES = new OrderedHashMap<>();
     private static boolean frozen;
     private final OrderedHashMap<Identifier, T> keyMap = new OrderedHashMap<>();
