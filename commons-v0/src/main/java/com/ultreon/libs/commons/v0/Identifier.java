@@ -70,7 +70,7 @@ public final class Identifier {
 
     @Contract("_ -> param1")
     public static String testLocation(String location) {
-        if (!Pattern.matches("([a-z\\d_]+)(\\.[a-z][a-z\\d_]+)*", location)) {
+        if (!Pattern.matches("([a-z\\d_]+)([.\\-][a-z\\-\\d_]+)*", location)) {
             throw new SyntaxException("Location is invalid: " + location);
         }
         return location;
