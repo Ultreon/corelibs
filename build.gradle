@@ -1,6 +1,6 @@
 apply plugin: 'maven-publish'
 
-group 'com.ultreon.corelibs'
+group 'tk.ultreonteam.corelibs'
 version '0.1.0'
 
 subprojects {
@@ -8,9 +8,11 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: 'maven-publish'
 
-    group 'com.ultreon.corelibs'
+    group 'tk.ultreonteam.corelibs'
 
     archivesBaseName = "corelibs-$project.name"
+
+    ext.admin = hasProperty('sonatypeUsername')
 
     repositories {
         mavenCentral()
@@ -43,6 +45,18 @@ subprojects {
             mavenJava(MavenPublication) {
                 from components.java
                 artifactId = "corelibs-$project.name"
+            }
+        }
+        repositories {
+            maven {
+                name "Sonatype"
+                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                if (admin) {
+                    credentials {
+                        username property("sonatypeUsername").toString()
+                        password property("sonatypePassword").toString()
+                    }
+                }
             }
         }
     }
