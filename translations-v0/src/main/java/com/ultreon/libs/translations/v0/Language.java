@@ -21,7 +21,7 @@ public class Language {
     public String get(String path, Object... args) {
         String[] split = path.split("/");
 
-        JsonObject object = root;
+        JsonObject object = this.root;
         for (int i = 0, splitLength = split.length; i < splitLength - 1; i++) {
             String s = split[i];
             JsonElement element = object.get(s);
@@ -40,11 +40,11 @@ public class Language {
     }
 
     public Locale getLocale() {
-        return locale;
+        return this.locale;
     }
 
     public Identifier getId() {
-        return id;
+        return this.id;
     }
 
     public static String translate(String path, Object... args) {

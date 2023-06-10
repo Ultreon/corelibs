@@ -25,7 +25,7 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     }
 
     public T1 getFirst() {
-        return first;
+        return this.first;
     }
 
     public void setFirst(T1 first) {
@@ -33,7 +33,7 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     }
 
     public T2 getSecond() {
-        return second;
+        return this.second;
     }
 
     public void setSecond(T2 second) {
@@ -41,7 +41,7 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     }
 
     public T3 getThird() {
-        return third;
+        return this.third;
     }
 
     public void setThird(T3 third) {
@@ -49,7 +49,7 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     }
 
     public T4 getFourth() {
-        return fourth;
+        return this.fourth;
     }
 
     public void setFourth(T4 fourth) {
@@ -57,7 +57,7 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     }
 
     public T5 getFifth() {
-        return fifth;
+        return this.fifth;
     }
 
     public void setFifth(T5 fifth) {
@@ -67,19 +67,19 @@ public class Quintuple<T1, T2, T3, T4, T5> implements Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Quintuple<?, ?, ?, ?, ?> quintuple = (Quintuple<?, ?, ?, ?, ?>) o;
-        return Objects.equals(getFirst(), quintuple.getFirst()) && Objects.equals(getSecond(), quintuple.getSecond()) && Objects.equals(getThird(), quintuple.getThird()) && Objects.equals(getFourth(), quintuple.getFourth()) && Objects.equals(getFifth(), quintuple.getFifth());
+        return Objects.equals(this.getFirst(), quintuple.getFirst()) && Objects.equals(this.getSecond(), quintuple.getSecond()) && Objects.equals(this.getThird(), quintuple.getThird()) && Objects.equals(this.getFourth(), quintuple.getFourth()) && Objects.equals(this.getFifth(), quintuple.getFifth());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirst(), getSecond(), getThird(), getFourth(), getFifth());
+        return Objects.hash(this.getFirst(), this.getSecond(), this.getThird(), this.getFourth(), this.getFifth());
     }
 
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ", " + third + ", " + fourth + ", " + fifth + ')';
+        return "(" + this.first + ", " + this.second + ", " + this.third + ", " + this.fourth + ", " + this.fifth + ')';
     }
 
     @Override

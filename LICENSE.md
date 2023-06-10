@@ -35,4 +35,4 @@ Copyright © 2022-2023 Qboi123 <qboiwastaken@gmail.com>
 
 ### §3 - Notes:
 * If you notice that the project with originally this license is redistributed in a modified or non-modified form without explicit permission of the original project owner, we advise you to contact that project owner.
-* Any usage of the project and/or it's contents that violates the license will lead to termination of any of the online accounts / services that violates it.  
+* Any usage of the project and/or it's contents that violates the license will lead to termination of the online accounts / services that violates it.  

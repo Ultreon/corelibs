@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface CharIterator extends Iterator<Character> {
     @Override
     default Character next() {
-        return nextChar();
+        return this.nextChar();
     }
 
     char nextChar();

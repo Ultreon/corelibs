@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 public interface CharSupplier extends Supplier<Character> {
     @Override
     default Character get() {
-        return getChar();
+        return this.getChar();
     }
 
     char getChar();

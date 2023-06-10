@@ -18,7 +18,7 @@ public abstract class TextObject {
     protected abstract String createString();
 
     public String getText() {
-        return createString();
+        return this.createString();
     }
 
     public abstract AttributedString getAttrString();

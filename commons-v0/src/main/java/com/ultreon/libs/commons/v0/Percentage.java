@@ -25,12 +25,12 @@ public record Percentage(double percentage) implements Serializable, Comparable<
     }
 
     public double value() {
-        return percentage / 100;
+        return this.percentage / 100;
     }
 
     @Override
     public int compareTo(@NotNull Percentage o) {
-        return Double.compare(percentage, o.percentage);
+        return Double.compare(this.percentage, o.percentage);
     }
 
     @Override
@@ -44,7 +44,7 @@ public record Percentage(double percentage) implements Serializable, Comparable<
     @Override
     public String toString() {
         return "Percentage[" +
-                "percentage=" + percentage + ']';
+                "percentage=" + this.percentage + ']';
     }
 
 }

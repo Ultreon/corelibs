@@ -34,6 +34,6 @@ public final class ApplicationCrash {
 
     @NotNull
     public CrashLog getCrashLog() {
-        return crashLog;
+        return this.crashLog;
     }
 }

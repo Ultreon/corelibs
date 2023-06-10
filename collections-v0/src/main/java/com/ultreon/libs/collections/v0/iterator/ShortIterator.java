@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface ShortIterator extends Iterator<Short> {
     @Override
     default Short next() {
-        return nextShort();
+        return this.nextShort();
     }
 
     short nextShort();

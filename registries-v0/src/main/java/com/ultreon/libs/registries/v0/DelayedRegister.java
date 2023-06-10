@@ -25,11 +25,11 @@ public class DelayedRegister<T> {
     }
 
     public <C extends T> RegistrySupplier<C> register(@NotNull String name, @NotNull Supplier<@NotNull C> supplier) {
-        Identifier id = new Identifier(modId, name);
+        Identifier id = new Identifier(this.modId, name);
 
-        objects.add(new HashMap.SimpleEntry<>(id, supplier::get));
+        this.objects.add(new HashMap.SimpleEntry<>(id, supplier::get));
 
-        return new RegistrySupplier<>(registry, supplier, id);
+        return new RegistrySupplier<>(this.registry, supplier, id);
     }
 
     public void register() {
@@ -38,7 +38,7 @@ public class DelayedRegister<T> {
                 return;
             }
 
-            for (HashMap.Entry<Identifier, Supplier<T>> entry : objects) {
+            for (HashMap.Entry<Identifier, Supplier<T>> entry : this.objects) {
                 T object = entry.getValue().get();
                 Identifier id = entry.getKey();
 

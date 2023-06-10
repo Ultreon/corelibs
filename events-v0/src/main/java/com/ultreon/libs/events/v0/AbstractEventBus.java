@@ -60,11 +60,11 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
     @Deprecated()
     public <E extends T> boolean publish(E event) {
-        if (!eventToMethod.containsKey(event.getClass())) {
+        if (!this.eventToMethod.containsKey(event.getClass())) {
             return false;
         }
 
-        CopyOnWriteArraySet<Pair<Object, Method>> methods = eventToMethod.get(event.getClass());
+        CopyOnWriteArraySet<Pair<Object, Method>> methods = this.eventToMethod.get(event.getClass());
         for (Pair<Object, Method> method : methods) {
 //            logger.info("Sending " + event.getClass().getName() + " to " + method.getSecond().getName());
             try {
@@ -79,31 +79,31 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
     @Deprecated()
     public void subscribe(Class<?> clazz) {
-        loopDeclaredMethods(clazz, (method) -> {
+        this.loopDeclaredMethods(clazz, (method) -> {
             // Get types and values.
             Class<? extends AbstractEvent> event = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
-            addHandlers(event, null, method);
+            this.addHandlers(event, null, method);
         });
     }
 
     @Deprecated()
     public void subscribe(Object o) {
-        loopMethods(o, (method) -> {
+        this.loopMethods(o, (method) -> {
             // Get types and values.
             Class<? extends AbstractEvent> event = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
-            addHandlers(event, o, method);
+            this.addHandlers(event, o, method);
         });
     }
 
     @Deprecated()
     public void unsubscribe(Class<? extends T> event, Class<?> clazz) {
-        loopDeclaredMethods(clazz, (method) -> {
+        this.loopDeclaredMethods(clazz, (method) -> {
             // Get and check event.
             Class<? extends AbstractEvent> evt = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
             if (event == evt) {
                 // Remove handler.
                 try {
-                    removeHandlers(event, null, method);
+                    this.removeHandlers(event, null, method);
                 } catch (IllegalStateException ignored) {
 
                 }
@@ -113,13 +113,13 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
     @Deprecated()
     public void unsubscribe(Class<? extends T> event, Object o) {
-        loopMethods(o, (method) -> {
+        this.loopMethods(o, (method) -> {
             // Get types and values.
             Class<? extends AbstractEvent> evt = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
             if (event == evt) {
                 // Remove handler.
                 try {
-                    removeHandlers(event, o, method);
+                    this.removeHandlers(event, o, method);
                 } catch (IllegalStateException ignored) {
 
                 }
@@ -129,13 +129,13 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
     @Deprecated()
     public void unsubscribe(Class<?> clazz) {
-        loopDeclaredMethods(clazz, (method) -> {
+        this.loopDeclaredMethods(clazz, (method) -> {
             // Get and check event.
             Class<? extends AbstractEvent> evt = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
 
             // Remove handler.
             try {
-                removeHandlers(evt, null, method);
+                this.removeHandlers(evt, null, method);
             } catch (IllegalStateException ignored) {
 
             }
@@ -144,13 +144,13 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
     @Deprecated()
     public void unsubscribe(Object o) {
-        loopMethods(o, (method) -> {
+        this.loopMethods(o, (method) -> {
             // Get types and values.
             Class<? extends AbstractEvent> evt = (Class<? extends AbstractEvent>) method.getParameterTypes()[0];
 
             // Remove handler.
             try {
-                removeHandlers(evt, o, method);
+                this.removeHandlers(evt, o, method);
             } catch (IllegalStateException ignored) {
 
             }
@@ -160,13 +160,13 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
     @Deprecated()
     private void loopDeclaredMethods(Class<?> clazz, Consumer<Method> consumer) {
         // Loop declared methods.
-        loopMethods0(clazz.getDeclaredMethods(), classPredicate, consumer);
+        this.loopMethods0(clazz.getDeclaredMethods(), classPredicate, consumer);
     }
 
     @Deprecated()
     private void loopMethods(Object o, Consumer<Method> consumer) {
         // Loop methods.
-        loopMethods0(o.getClass().getMethods(), instancePredicate, consumer);
+        this.loopMethods0(o.getClass().getMethods(), instancePredicate, consumer);
     }
 
     @Deprecated()
@@ -185,47 +185,47 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
     @Deprecated()
     private void removeHandlers(Class<? extends AbstractEvent> event, @Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
-        if (!eventToMethod.containsKey(event)) {
+        if (!this.eventToMethod.containsKey(event)) {
             throw new IllegalStateException("Cannot unregister method for a non-registered event.");
-        } else if (!eventToMethod.get(event).contains(pair)) {
+        } else if (!this.eventToMethod.get(event).contains(pair)) {
             throw new IllegalStateException("Cannot unregister an unregistered method.");
         }
 
-        if (!methodToEvent.containsKey(pair)) {
+        if (!this.methodToEvent.containsKey(pair)) {
             throw new IllegalStateException("Cannot unregister an unregistered method.");
-        } else if (!methodToEvent.get(pair).contains(event)) {
+        } else if (!this.methodToEvent.get(pair).contains(event)) {
             throw new IllegalStateException("Cannot unregister method for a non-registered event.");
         }
 
-        methodToEvent.get(pair).remove(event);
-        eventToMethod.get(event).remove(pair);
+        this.methodToEvent.get(pair).remove(event);
+        this.eventToMethod.get(event).remove(pair);
     }
 
     @Deprecated()
     private void removeAllEvents(@Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
-        if (!methodToEvent.containsKey(pair)) {
+        if (!this.methodToEvent.containsKey(pair)) {
             throw new IllegalStateException("Cannot unregister an unregistered method.");
         }
 
-        for (Class<?> event : methodToEvent.get(pair)) {
-            eventToMethod.get(event).remove(pair);
+        for (Class<?> event : this.methodToEvent.get(pair)) {
+            this.eventToMethod.get(event).remove(pair);
         }
 
-        methodToEvent.remove(pair);
+        this.methodToEvent.remove(pair);
     }
 
     @Deprecated()
     protected void addHandlers(Class<? extends AbstractEvent> event, @Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
-        if (!eventToMethod.containsKey(event)) {
-            eventToMethod.put(event, new CopyOnWriteArraySet<>());
+        if (!this.eventToMethod.containsKey(event)) {
+            this.eventToMethod.put(event, new CopyOnWriteArraySet<>());
         }
-        if (!methodToEvent.containsKey(pair)) {
-            methodToEvent.put(pair, new CopyOnWriteArraySet<>());
+        if (!this.methodToEvent.containsKey(pair)) {
+            this.methodToEvent.put(pair, new CopyOnWriteArraySet<>());
         }
-        eventToMethod.get(event).add(pair);
-        methodToEvent.get(pair).add(event);
+        this.eventToMethod.get(event).add(pair);
+        this.methodToEvent.get(pair).add(event);
     }
 
     @Deprecated
@@ -241,13 +241,13 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
 
         @Deprecated
         public void unsubscribe() {
-            onRemove();
+            this.onRemove();
         }
 
         @Deprecated
         @SuppressWarnings("unchecked")
         <T extends AbstractEvent> void onPublish(T event) {
-            Collection<Subscriber<T>> handlers = getSubscribers((Class<T>) event.getClass());
+            Collection<Subscriber<T>> handlers = this.getSubscribers((Class<T>) event.getClass());
             if (handlers == null) {
                 return;
             }

@@ -22,7 +22,7 @@ public class Vec4i implements Externalizable, Cloneable {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -30,7 +30,7 @@ public class Vec4i implements Externalizable, Cloneable {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -38,7 +38,7 @@ public class Vec4i implements Externalizable, Cloneable {
     }
 
     public int getZ() {
-        return z;
+        return this.z;
     }
 
     public void setZ(int z) {
@@ -46,7 +46,7 @@ public class Vec4i implements Externalizable, Cloneable {
     }
 
     public int getW() {
-        return w;
+        return this.w;
     }
 
     public void setW(int w) {
@@ -78,15 +78,15 @@ public class Vec4i implements Externalizable, Cloneable {
     }
 
     public Vec4d d() {
-        return new Vec4d(x, y, z, w);
+        return new Vec4d(this.x, this.y, this.z, this.w);
     }
 
     public Vec4f f() {
-        return new Vec4f(x, y, z, w);
+        return new Vec4f(this.x, this.y, this.z, this.w);
     }
 
     public Vec4i i() {
-        return new Vec4i(x, y, z, w);
+        return new Vec4i(this.x, this.y, this.z, this.w);
     }
 
     @Override
@@ -107,32 +107,32 @@ public class Vec4i implements Externalizable, Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Vec4i vec4I = (Vec4i) o;
-        return getX() == vec4I.getX() && getY() == vec4I.getY() && getZ() == vec4I.getZ() && getW() == vec4I.getW();
+        return this.getX() == vec4I.getX() && this.getY() == vec4I.getY() && this.getZ() == vec4I.getZ() && this.getW() == vec4I.getW();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getZ(), getW());
+        return Objects.hash(this.getX(), this.getY(), this.getZ(), this.getW());
     }
 
     @Override
     public String toString() {
         return "Vector4i{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                ", w=" + w +
+                "x=" + this.x +
+                ", y=" + this.y +
+                ", z=" + this.z +
+                ", w=" + this.w +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(x);
-        out.writeInt(y);
-        out.writeInt(z);
-        out.writeInt(w);
+        out.writeInt(this.x);
+        out.writeInt(this.y);
+        out.writeInt(this.z);
+        out.writeInt(this.w);
     }
 
     @Override

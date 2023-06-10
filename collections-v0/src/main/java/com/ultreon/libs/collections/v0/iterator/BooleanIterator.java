@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface BooleanIterator extends Iterator<Boolean> {
     @Override
     default Boolean next() {
-        return nextBoolean();
+        return this.nextBoolean();
     }
 
     boolean nextBoolean();

@@ -15,7 +15,7 @@ public enum FontWidth {
     }
 
     public float getWidth() {
-        return width;
+        return this.width;
     }
     @NotNull
     public static FontWidth closestTo(float width) {

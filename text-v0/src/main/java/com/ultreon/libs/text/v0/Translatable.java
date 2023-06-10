@@ -6,10 +6,10 @@ public interface Translatable {
     String getTranslationPath();
 
     default MutableText getTranslation() {
-        return TextObject.translation(getTranslationPath());
+        return TextObject.translation(this.getTranslationPath());
     }
 
     default String getTranslationText() {
-        return Language.translate(getTranslationPath());
+        return Language.translate(this.getTranslationPath());
     }
 }

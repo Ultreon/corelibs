@@ -7,7 +7,7 @@ public interface CharConsumer extends Consumer<Character> {
     @Override
     @Deprecated
     default void accept(Character aCharacter) {
-        accept((char)aCharacter);
+        this.accept((char)aCharacter);
     }
 
     void accept(char v);

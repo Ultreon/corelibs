@@ -130,59 +130,59 @@ public class Color {
     }
 
     public java.awt.Color toAwt() {
-        return awtColor;
+        return this.awtColor;
     }
 
     public Color brighter() {
-        return new Color(awtColor.brighter());
+        return new Color(this.awtColor.brighter());
     }
 
     public Color darker() {
-        return new Color(awtColor.darker());
+        return new Color(this.awtColor.darker());
     }
 
     public int getRed() {
-        return awtColor.getRed();
+        return this.awtColor.getRed();
     }
 
     public int getGreen() {
-        return awtColor.getGreen();
+        return this.awtColor.getGreen();
     }
 
     public int getBlue() {
-        return awtColor.getBlue();
+        return this.awtColor.getBlue();
     }
 
     public int getAlpha() {
-        return awtColor.getAlpha();
+        return this.awtColor.getAlpha();
     }
 
     public int getTransparency() {
-        return awtColor.getTransparency();
+        return this.awtColor.getTransparency();
     }
 
     public int getRgb() {
-        return awtColor.getRGB();
+        return this.awtColor.getRGB();
     }
 
     public Color withRed(int red) {
-        return new Color(red, getGreen(), getBlue(), getAlpha());
+        return new Color(red, this.getGreen(), this.getBlue(), this.getAlpha());
     }
 
     public Color withGreen(int green) {
-        return new Color(getRed(), green, getBlue(), getAlpha());
+        return new Color(this.getRed(), green, this.getBlue(), this.getAlpha());
     }
 
     public Color withBlue(int blue) {
-        return new Color(getRed(), getGreen(), blue, getAlpha());
+        return new Color(this.getRed(), this.getGreen(), blue, this.getAlpha());
     }
 
     public Color withAlpha(int alpha) {
-        return new Color(getRed(), getGreen(), getBlue(), alpha);
+        return new Color(this.getRed(), this.getGreen(), this.getBlue(), alpha);
     }
 
     @Override
     public String toString() {
-        return "#%02x%02x%02x%02x".formatted(getRed(), getGreen(), getBlue(), getAlpha());
+        return "#%02x%02x%02x%02x".formatted(this.getRed(), this.getGreen(), this.getBlue(), this.getAlpha());
     }
 }

@@ -23,7 +23,7 @@ public class Quadruple<T1, T2, T3, T4> implements Cloneable {
     }
 
     public T1 getFirst() {
-        return first;
+        return this.first;
     }
 
     public void setFirst(T1 first) {
@@ -31,7 +31,7 @@ public class Quadruple<T1, T2, T3, T4> implements Cloneable {
     }
 
     public T2 getSecond() {
-        return second;
+        return this.second;
     }
 
     public void setSecond(T2 second) {
@@ -39,7 +39,7 @@ public class Quadruple<T1, T2, T3, T4> implements Cloneable {
     }
 
     public T3 getThird() {
-        return third;
+        return this.third;
     }
 
     public void setThird(T3 third) {
@@ -47,7 +47,7 @@ public class Quadruple<T1, T2, T3, T4> implements Cloneable {
     }
 
     public T4 getFourth() {
-        return fourth;
+        return this.fourth;
     }
 
     public void setFourth(T4 fourth) {
@@ -57,19 +57,19 @@ public class Quadruple<T1, T2, T3, T4> implements Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Quadruple<?, ?, ?, ?> quadruple = (Quadruple<?, ?, ?, ?>) o;
-        return Objects.equals(getFirst(), quadruple.getFirst()) && Objects.equals(getSecond(), quadruple.getSecond()) && Objects.equals(getThird(), quadruple.getThird()) && Objects.equals(getFourth(), quadruple.getFourth());
+        return Objects.equals(this.getFirst(), quadruple.getFirst()) && Objects.equals(this.getSecond(), quadruple.getSecond()) && Objects.equals(this.getThird(), quadruple.getThird()) && Objects.equals(this.getFourth(), quadruple.getFourth());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirst(), getSecond(), getThird(), getFourth());
+        return Objects.hash(this.getFirst(), this.getSecond(), this.getThird(), this.getFourth());
     }
 
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ", " + third + ", " + fourth + ')';
+        return "(" + this.first + ", " + this.second + ", " + this.third + ", " + this.fourth + ')';
     }
 
     @Override

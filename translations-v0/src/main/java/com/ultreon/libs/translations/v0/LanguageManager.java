@@ -42,11 +42,11 @@ public class LanguageManager {
         JsonObject json = new JsonObject();
         for (byte[] asset : assets) {
             JsonObject object = gson.fromJson(new StringReader(new String(asset, StandardCharsets.UTF_8)), JsonObject.class);
-            recurse(json, object);
+            this.recurse(json, object);
         }
 
         Language language = new Language(locale, json, id);
-        languages.put(locale.getLanguage(), language);
+        this.languages.put(locale.getLanguage(), language);
         REGISTRY.register(id, language);
         return language;
     }
@@ -56,21 +56,21 @@ public class LanguageManager {
         String s = "languages/" + id + ".json";
         JsonObject json = gson.fromJson(reader, JsonObject.class);
         Language language = new Language(locale, json, id);
-        languages.put(locale.getLanguage(), language);
+        this.languages.put(locale.getLanguage(), language);
         REGISTRY.register(id, language);
         return language;
     }
 
     public Language get(Locale locale) {
-        return languages.get(locale.getLanguage());
+        return this.languages.get(locale.getLanguage());
     }
 
     public void register(Locale locale, String id) {
-        if (locales.contains(locale.getLanguage())) {
-            logger.warn("Locale overridden: " + locale.getLanguage());
+        if (this.locales.contains(locale.getLanguage())) {
+            this.logger.warn("Locale overridden: " + locale.getLanguage());
         }
-        if (ids.contains(id)) {
-            logger.warn("LanguageID overridden: " + id);
+        if (this.ids.contains(id)) {
+            this.logger.warn("LanguageID overridden: " + id);
         }
 
         this.locales.add(locale.getLanguage());
@@ -80,11 +80,11 @@ public class LanguageManager {
     }
 
     public Locale getLocale(String id) {
-        return new Locale(id2locale.get(id));
+        return new Locale(this.id2locale.get(id));
     }
 
     public String getLanguageID(Locale locale) {
-        return locale2id.get(locale.getLanguage());
+        return this.locale2id.get(locale.getLanguage());
     }
 
     private void recurse(JsonObject json, JsonObject object) {
@@ -94,7 +94,7 @@ public class LanguageManager {
             if (value instanceof JsonObject obj) {
                 if (json.has(key)) {
                     if (json.get(key) instanceof JsonObject) {
-                        recurse(json.getAsJsonObject(key), obj);
+                        this.recurse(json.getAsJsonObject(key), obj);
                     }
                 }
             }
@@ -106,14 +106,14 @@ public class LanguageManager {
     }
 
     public Set<Locale> getLocales() {
-        return locales.stream().map(Locale::new).collect(Collectors.toSet());
+        return this.locales.stream().map(Locale::new).collect(Collectors.toSet());
     }
 
     public Set<String> getLanguageIDs() {
-        return ids;
+        return this.ids;
     }
 
     public List<Language> getLanguages() {
-        return new ArrayList<>(languages.values());
+        return new ArrayList<>(this.languages.values());
     }
 }

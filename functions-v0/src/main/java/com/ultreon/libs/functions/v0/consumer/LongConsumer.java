@@ -7,7 +7,7 @@ public interface LongConsumer extends Consumer<Long> {
     @Override
     @Deprecated
     default void accept(Long aLong) {
-        accept((long)aLong);
+        this.accept((long)aLong);
     }
 
     void accept(long v);

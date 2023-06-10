@@ -7,7 +7,7 @@ public interface ByteConsumer extends Consumer<Byte> {
     @Override
     @Deprecated
     default void accept(Byte aByte) {
-        accept((byte)aByte);
+        this.accept((byte)aByte);
     }
 
     void accept(byte v);

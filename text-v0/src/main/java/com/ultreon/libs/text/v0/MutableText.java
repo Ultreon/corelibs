@@ -19,9 +19,9 @@ public abstract class MutableText extends TextObject {
     @Override
     public AttributedString getAttrString() {
         var builder = new AttributedStringBuilder();
-        String string = createString();
-        if (!string.isEmpty()) builder.append(new AttributedString(string, getAttrs()));
-        for (TextObject extra : extras) {
+        String string = this.createString();
+        if (!string.isEmpty()) builder.append(new AttributedString(string, this.getAttrs()));
+        for (TextObject extra : this.extras) {
             builder.append(extra.getAttrString());
         }
 
@@ -31,15 +31,15 @@ public abstract class MutableText extends TextObject {
     @Override
     public final String getText() {
         var builder = new StringBuilder();
-        builder.append(createString());
-        for (TextObject extra : extras) {
+        builder.append(this.createString());
+        for (TextObject extra : this.extras) {
             builder.append(extra.getText());
         }
         return builder.toString();
     }
 
     public Color getColor() {
-        return (Color) attrs.get(TextAttribute.FOREGROUND);
+        return (Color) this.attrs.get(TextAttribute.FOREGROUND);
     }
 
     public MutableText setColor(Color color) {
@@ -48,7 +48,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public boolean isUnderlined() {
-        return attrs.get(TextAttribute.UNDERLINE) != null;
+        return this.attrs.get(TextAttribute.UNDERLINE) != null;
     }
 
     public MutableText setUnderlined(boolean underlined) {
@@ -57,7 +57,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public boolean isStrikethrough() {
-        return (boolean) attrs.get(TextAttribute.STRIKETHROUGH);
+        return (boolean) this.attrs.get(TextAttribute.STRIKETHROUGH);
     }
 
     public MutableText setStrikethrough(boolean strikethrough) {
@@ -66,7 +66,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public boolean isLigaturesEnabled() {
-        return Objects.equals(attrs.get(TextAttribute.LIGATURES), 1);
+        return Objects.equals(this.attrs.get(TextAttribute.LIGATURES), 1);
     }
 
     public MutableText setLigaturesEnabled(boolean ligaturesEnabled) {
@@ -75,7 +75,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public double getSize() {
-        return ((Number)attrs.get(TextAttribute.SIZE)).doubleValue();
+        return ((Number) this.attrs.get(TextAttribute.SIZE)).doubleValue();
     }
 
     public MutableText setSize(double size) {
@@ -84,7 +84,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public float getWidth() {
-        return (float)attrs.get(TextAttribute.SIZE);
+        return (float) this.attrs.get(TextAttribute.SIZE);
     }
 
     public MutableText setWidth(float size) {
@@ -93,7 +93,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public FontWidth getFontWidth() {
-        return FontWidth.closestTo((float)attrs.get(TextAttribute.SIZE));
+        return FontWidth.closestTo((float) this.attrs.get(TextAttribute.SIZE));
     }
 
     public MutableText setFontWidth(FontWidth width) {
@@ -102,7 +102,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public float getWeight() {
-        return (float) attrs.get(TextAttribute.WEIGHT);
+        return (float) this.attrs.get(TextAttribute.WEIGHT);
     }
 
     public MutableText setWeight(float weight) {
@@ -111,7 +111,7 @@ public abstract class MutableText extends TextObject {
     }
 
     public @NotNull FontWeight getFontWeight() {
-        return FontWeight.closestTo((float) attrs.get(TextAttribute.WEIGHT));
+        return FontWeight.closestTo((float) this.attrs.get(TextAttribute.WEIGHT));
     }
 
     public MutableText setFontWeight(@NotNull FontWeight weight) {
@@ -121,7 +121,7 @@ public abstract class MutableText extends TextObject {
 
     @Range(from = -7, to = 7)
     public int getSuperscript() {
-        return (int) attrs.get(TextAttribute.SUPERSCRIPT);
+        return (int) this.attrs.get(TextAttribute.SUPERSCRIPT);
     }
 
     public MutableText setFontWeight(@Range(from = -7, to = 7) int superscript) {
@@ -130,21 +130,21 @@ public abstract class MutableText extends TextObject {
     }
 
     public Map<? extends Attribute, ?> getAttrs() {
-        return attrs;
+        return this.attrs;
     }
 
     public MutableText append(TextObject textObject) {
-        extras.add(textObject);
+        this.extras.add(textObject);
         return this;
     }
 
     public MutableText append(String text) {
-        extras.add(TextObject.nullToEmpty(text));
+        this.extras.add(TextObject.nullToEmpty(text));
         return this;
     }
 
     public MutableText append(Object o) {
-        extras.add(TextObject.nullToEmpty(String.valueOf(o)));
+        this.extras.add(TextObject.nullToEmpty(String.valueOf(o)));
         return this;
     }
 }

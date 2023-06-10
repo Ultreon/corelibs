@@ -15,16 +15,16 @@ public class Insets extends java.awt.Insets {
     }
 
     public void shrink(int amount) {
-        top -= amount;
-        left -= amount;
-        bottom -= amount;
-        right -= amount;
+        this.top -= amount;
+        this.left -= amount;
+        this.bottom -= amount;
+        this.right -= amount;
     }
 
     public void grow(int amount) {
-        top += amount;
-        left += amount;
-        bottom += amount;
-        right += amount;
+        this.top += amount;
+        this.left += amount;
+        this.bottom += amount;
+        this.right += amount;
     }
 }

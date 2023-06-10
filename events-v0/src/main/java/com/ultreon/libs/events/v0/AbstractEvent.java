@@ -12,11 +12,11 @@ public abstract class AbstractEvent {
 
     @Deprecated()
     public final boolean isCancelled() {
-        return isCancelable() && cancelled;
+        return this.isCancelable() && this.cancelled;
     }
 
     @Deprecated()
     public final boolean isCancelable() {
-        return getClass().isAnnotationPresent(Cancelable.class);
+        return this.getClass().isAnnotationPresent(Cancelable.class);
     }
 }

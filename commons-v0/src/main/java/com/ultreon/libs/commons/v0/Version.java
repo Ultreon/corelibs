@@ -10,23 +10,23 @@ public record Version(int major, int minor, int build, VersionType type, int rel
 
     @Override
     public String toString() {
-        return major + "." + minor + "." + build + "-" + type.getName() + release;
+        return this.major + "." + this.minor + "." + this.build + "-" + this.type.getName() + this.release;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Version version = (Version) o;
-        return major == version.major &&
-                minor == version.minor &&
-                release == version.release &&
-                type == version.type;
+        return this.major == version.major &&
+                this.minor == version.minor &&
+                this.release == version.release &&
+                this.type == version.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(major, minor, type, release);
+        return Objects.hash(this.major, this.minor, this.type, this.release);
     }
 
 }

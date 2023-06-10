@@ -13,6 +13,6 @@ public class TranslationText extends MutableText {
 
     @Override
     protected String createString() {
-        return Language.translate(path, args);
+        return Language.translate(this.path, this.args);
     }
 }

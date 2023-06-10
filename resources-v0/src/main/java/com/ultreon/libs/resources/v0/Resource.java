@@ -19,7 +19,7 @@ public class Resource {
     }
 
     public void load() {
-        try (InputStream inputStream = opener.get()) {
+        try (InputStream inputStream = this.opener.get()) {
             this.data = inputStream.readAllBytes();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -27,19 +27,19 @@ public class Resource {
     }
 
     public byte[] loadOrGet() {
-        if (data == null) {
-            load();
+        if (this.data == null) {
+            this.load();
         }
 
-        return getData();
+        return this.getData();
     }
 
     public InputStream loadOrOpenStream() {
-        return new ByteArrayInputStream(loadOrGet());
+        return new ByteArrayInputStream(this.loadOrGet());
     }
 
     protected Image loadImage() {
-        try (InputStream inputStream = opener.get()) {
+        try (InputStream inputStream = this.opener.get()) {
             return ImageIO.read(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -47,15 +47,15 @@ public class Resource {
     }
 
     public byte[] getData() {
-        return data;
+        return this.data;
     }
 
     public ByteArrayInputStream openStream() {
-        return new ByteArrayInputStream(loadOrGet());
+        return new ByteArrayInputStream(this.loadOrGet());
     }
 
     public Font loadFont() throws FontFormatException {
-        try (InputStream inputStream = opener.get()) {
+        try (InputStream inputStream = this.opener.get()) {
             return Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -67,6 +67,6 @@ public class Resource {
             return this.image;
         }
 
-        return this.image = ImageIO.read(openStream());
+        return this.image = ImageIO.read(this.openStream());
     }
 }

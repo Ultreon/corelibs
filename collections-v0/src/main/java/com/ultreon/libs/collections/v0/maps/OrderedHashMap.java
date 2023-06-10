@@ -25,23 +25,23 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     private transient long modCount = 0;
 
     public OrderedHashMap() {
-        sentinel = createSentinel();
-        entries = new HashMap<>();
+        this.sentinel = createSentinel();
+        this.entries = new HashMap<>();
     }
 
     public OrderedHashMap(int initialSize) {
-        sentinel = createSentinel();
-        entries = new HashMap<>(initialSize);
+        this.sentinel = createSentinel();
+        this.entries = new HashMap<>(initialSize);
     }
 
     public OrderedHashMap(int initialSize, float loadFactor) {
-        sentinel = createSentinel();
-        entries = new HashMap<>(initialSize, loadFactor);
+        this.sentinel = createSentinel();
+        this.entries = new HashMap<>(initialSize, loadFactor);
     }
 
     public OrderedHashMap(Map<K, V> m) {
         this();
-        putAll(m);
+        this.putAll(m);
     }
 
     private static <K, V> Entry<K, V> createSentinel() {
@@ -57,31 +57,31 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     private void insertEntry(Entry<K, V> entry) {
-        entry.next = sentinel;
-        entry.prev = sentinel.prev;
-        sentinel.prev.next = entry;
-        sentinel.prev = entry;
+        entry.next = this.sentinel;
+        entry.prev = this.sentinel.prev;
+        this.sentinel.prev.next = entry;
+        this.sentinel.prev = entry;
     }
 
     public int size() {
-        return entries.size();
+        return this.entries.size();
     }
 
     public boolean isEmpty() {
-        return sentinel.next == sentinel;
+        return this.sentinel.next == this.sentinel;
     }
 
     public boolean containsKey(Object key) {
-        return entries.containsKey(key);
+        return this.entries.containsKey(key);
     }
 
     public boolean containsValue(Object value) {
         if (value == null) {
-            for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+            for (Entry<K, V> pos = this.sentinel.next; pos != this.sentinel; pos = pos.next) {
                 if (pos.getValue() == null) return true;
             }
         } else {
-            for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+            for (Entry<K, V> pos = this.sentinel.next; pos != this.sentinel; pos = pos.next) {
                 if (value.equals(pos.getValue())) return true;
             }
         }
@@ -89,104 +89,104 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     public V get(Object o) {
-        Entry<K, V> entry = entries.get(o);
+        Entry<K, V> entry = this.entries.get(o);
 
         if (entry == null) return null;
         return entry.getValue();
     }
 
     public Map.Entry<K, V> getFirst() {
-        return (isEmpty()) ? null : sentinel.next;
+        return (this.isEmpty()) ? null : this.sentinel.next;
     }
 
     public Object getFirstKey() {
-        return sentinel.next.getKey();
+        return this.sentinel.next.getKey();
     }
 
     public Object getFirstValue() {
-        return sentinel.next.getValue();
+        return this.sentinel.next.getValue();
     }
 
     public Map.Entry<K, V> getLast() {
-        return (isEmpty()) ? null : sentinel.prev;
+        return (this.isEmpty()) ? null : this.sentinel.prev;
     }
 
     public Object getLastKey() {
-        return sentinel.prev.getKey();
+        return this.sentinel.prev.getKey();
     }
 
     public Object getLastValue() {
-        return sentinel.prev.getValue();
+        return this.sentinel.prev.getValue();
     }
 
     public V put(K key, V value) {
-        modCount++;
+        this.modCount++;
         V oldValue = null;
 
-        Entry<K, V> e = entries.get(key);
+        Entry<K, V> e = this.entries.get(key);
 
         if (e != null) {
-            removeEntry(e);
+            this.removeEntry(e);
             oldValue = e.setValue(value);
         } else {
             e = new Entry<>(key, value);
-            entries.put(key, e);
+            this.entries.put(key, e);
         }
 
-        insertEntry(e);
+        this.insertEntry(e);
         return oldValue;
     }
 
     @SuppressWarnings("unchecked")
     public V remove(Object key) {
-        Entry<K, V> e = removeImpl((K) key);
+        Entry<K, V> e = this.removeImpl((K) key);
         return (e == null) ? null : e.getValue();
     }
 
     private Entry<K, V> removeImpl(K key) {
-        Entry<K, V> e = entries.remove(key);
+        Entry<K, V> e = this.entries.remove(key);
 
         if (e == null) return null;
 
-        modCount++;
-        removeEntry(e);
+        this.modCount++;
+        this.removeEntry(e);
         return e;
     }
 
     public void putAll(Map<? extends K, ? extends V> t) {
         for (Map.Entry<? extends K, ? extends V> entry : t.entrySet()) {
-            put(entry.getKey(), entry.getValue());
+            this.put(entry.getKey(), entry.getValue());
         }
     }
 
     public void clear() {
-        modCount++;
+        this.modCount++;
 
-        entries.clear();
+        this.entries.clear();
 
-        sentinel.next = sentinel;
-        sentinel.prev = sentinel;
+        this.sentinel.next = this.sentinel;
+        this.sentinel.prev = this.sentinel;
     }
 
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
         if (!(obj instanceof Map)) return false;
-        return entrySet().equals(((Map<?, ?>) obj).entrySet());
+        return this.entrySet().equals(((Map<?, ?>) obj).entrySet());
     }
 
     public int hashCode() {
-        return entrySet().hashCode();
+        return this.entrySet().hashCode();
     }
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append('[');
-        for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+        for (Entry<K, V> pos = this.sentinel.next; pos != this.sentinel; pos = pos.next) {
             buf.append(pos.getKey());
             buf.append('=');
             buf.append(pos.getValue());
-            if (pos.next != sentinel) {
+            if (pos.next != this.sentinel) {
                 buf.append(',');
             }
         }
@@ -231,14 +231,14 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
 
             public boolean remove(Object value) {
                 if (value == null) {
-                    for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+                    for (Entry<K, V> pos = OrderedHashMap.this.sentinel.next; pos != OrderedHashMap.this.sentinel; pos = pos.next) {
                         if (pos.getValue() == null) {
                             OrderedHashMap.this.removeImpl(pos.getKey());
                             return true;
                         }
                     }
                 } else {
-                    for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+                    for (Entry<K, V> pos = OrderedHashMap.this.sentinel.next; pos != OrderedHashMap.this.sentinel; pos = pos.next) {
                         if (value.equals(pos.getValue())) {
                             OrderedHashMap.this.removeImpl(pos.getKey());
                             return true;
@@ -272,7 +272,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
                 if (o == null) {
                     return null;
                 }
-                Entry<K, V> entry = entries.get(o.getKey());
+                Entry<K, V> entry = OrderedHashMap.this.entries.get(o.getKey());
                 if ((entry != null) && entry.equals(o)) {
                     return entry;
                 } else {
@@ -291,7 +291,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
                     throw new ClassCastException("Cannot cast " + o.getClass().getSimpleName() + " to Map.Entry");
                 }
 
-                Map.Entry<K, V> e = findEntry((Map.Entry<K, V>) o);
+                Map.Entry<K, V> e = this.findEntry((Map.Entry<K, V>) o);
                 if (e == null) {
                     return false;
                 }
@@ -317,7 +317,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
                     throw new ClassCastException("Cannot cast " + o.getClass().getSimpleName() + " to Map.Entry");
                 }
 
-                return findEntry((Map.Entry<K, V>) o) != null;
+                return this.findEntry((Map.Entry<K, V>) o) != null;
             }
         };
     }
@@ -334,35 +334,35 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     private Map.Entry<K, V> getEntry(int index) {
-        Entry<K, V> pos = sentinel;
+        Entry<K, V> pos = this.sentinel;
         if (index < 0) {
             throw new ArrayIndexOutOfBoundsException(index + " < 0");
         }
 
         int i = -1;
-        while ((i < (index - 1)) && (pos.next != sentinel)) {
+        while ((i < (index - 1)) && (pos.next != this.sentinel)) {
             i++;
             pos = pos.next;
         }
 
-        if (pos.next == sentinel) {
+        if (pos.next == this.sentinel) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " + (i + 1));
         }
         return pos.next;
     }
 
     public Object get(int index) {
-        return getEntry(index).getKey();
+        return this.getEntry(index).getKey();
     }
 
     public Object getValue(int index) {
-        return getEntry(index).getValue();
+        return this.getEntry(index).getValue();
     }
 
     public int indexOf(K key) {
-        Entry<K, V> e = entries.get(key);
+        Entry<K, V> e = this.entries.get(key);
         int pos = 0;
-        while (e.prev != sentinel) {
+        while (e.prev != this.sentinel) {
             pos++;
             e = e.prev;
         }
@@ -370,21 +370,21 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     public Iterator<K> iterator() {
-        return keySet().iterator();
+        return this.keySet().iterator();
     }
 
     public int lastIndexOf(K key) {
-        return indexOf(key);
+        return this.indexOf(key);
     }
 
     public List<K> sequence() {
-        List<K> l = new ArrayList<>(size());
-        l.addAll(keySet());
+        List<K> l = new ArrayList<>(this.size());
+        l.addAll(this.keySet());
         return Collections.unmodifiableList(l);
     }
 
     public Object remove(int index) {
-        return remove(get(index));
+        return this.remove(this.get(index));
     }
 
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException, ClassCastException {
@@ -392,13 +392,13 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
         for (int i = 0; i < size; i++) {
             @SuppressWarnings("unchecked") K key = (K) in.readObject();
             @SuppressWarnings("unchecked") V value = (V) in.readObject();
-            put(key, value);
+            this.put(key, value);
         }
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(size());
-        for (Entry<K, V> pos = sentinel.next; pos != sentinel; pos = pos.next) {
+        out.writeInt(this.size());
+        for (Entry<K, V> pos = this.sentinel.next; pos != this.sentinel; pos = pos.next) {
             out.writeObject(pos.getKey());
             out.writeObject(pos.getValue());
         }
@@ -433,8 +433,8 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
         }
 
         public int hashCode() {
-            return (((getKey() == null) ? 0 : getKey().hashCode()) ^
-                    ((getValue() == null) ? 0 : getValue().hashCode()));
+            return (((this.getKey() == null) ? 0 : this.getKey().hashCode()) ^
+                    ((this.getValue() == null) ? 0 : this.getValue().hashCode()));
         }
 
         public boolean equals(Map.Entry<K, V> obj) {
@@ -445,61 +445,61 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
                 return true;
             }
 
-            return (((getKey() == null) ? (obj.getKey() == null) : getKey().equals(obj.getKey()))
-                    && ((getValue() == null) ? (obj.getValue() == null) : getValue().equals(obj.getValue())));
+            return (((this.getKey() == null) ? (obj.getKey() == null) : this.getKey().equals(obj.getKey()))
+                    && ((this.getValue() == null) ? (obj.getValue() == null) : this.getValue().equals(obj.getValue())));
         }
 
         public String toString() {
-            return "[" + getKey() + '=' + getValue() + ']';
+            return "[" + this.getKey() + '=' + this.getValue() + ']';
         }
     }
 
     private class OrderedIterator<T> implements Iterator<T> {
         private int returnType;
 
-        private Entry<K, V> pos = sentinel;
+        private Entry<K, V> pos = OrderedHashMap.this.sentinel;
 
-        private transient long expectedModCount = modCount;
+        private transient long expectedModCount = OrderedHashMap.this.modCount;
 
         public OrderedIterator(int returnType) {
             this.returnType = returnType | REMOVED_MASK;
         }
 
         public boolean hasNext() {
-            return pos.next != sentinel;
+            return this.pos.next != OrderedHashMap.this.sentinel;
         }
 
         @SuppressWarnings("unchecked")
         public T next() {
-            if (modCount != expectedModCount) {
+            if (OrderedHashMap.this.modCount != this.expectedModCount) {
                 throw new ConcurrentModificationException();
             }
-            if (pos.next == sentinel) {
+            if (this.pos.next == OrderedHashMap.this.sentinel) {
                 throw new NoSuchElementException();
             }
 
-            returnType = returnType & ~REMOVED_MASK;
-            pos = pos.next;
+            this.returnType = this.returnType & ~REMOVED_MASK;
+            this.pos = this.pos.next;
 
-            return switch (returnType) {
-                case KEY -> (T) pos.getKey();
-                case VALUE -> (T) pos.getValue();
-                case ENTRY -> (T) pos;
-                default -> throw new Error("bad iterator type: " + returnType);
+            return switch (this.returnType) {
+                case KEY -> (T) this.pos.getKey();
+                case VALUE -> (T) this.pos.getValue();
+                case ENTRY -> (T) this.pos;
+                default -> throw new Error("bad iterator type: " + this.returnType);
             };
         }
 
         public void remove() {
-            if ((returnType & REMOVED_MASK) != 0) {
+            if ((this.returnType & REMOVED_MASK) != 0) {
                 throw new IllegalStateException("remove() must follow next()");
             }
-            if (modCount != expectedModCount) {
+            if (OrderedHashMap.this.modCount != this.expectedModCount) {
                 throw new ConcurrentModificationException();
             }
 
-            OrderedHashMap.this.removeImpl(pos.getKey());
-            expectedModCount++;
-            returnType = returnType | REMOVED_MASK;
+            OrderedHashMap.this.removeImpl(this.pos.getKey());
+            this.expectedModCount++;
+            this.returnType = this.returnType | REMOVED_MASK;
         }
     }
 }

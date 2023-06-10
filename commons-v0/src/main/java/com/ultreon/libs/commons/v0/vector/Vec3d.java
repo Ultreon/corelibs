@@ -21,7 +21,7 @@ public class Vec3d implements Externalizable, Cloneable {
     }
 
     public double getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(double x) {
@@ -29,7 +29,7 @@ public class Vec3d implements Externalizable, Cloneable {
     }
 
     public double getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(double y) {
@@ -37,7 +37,7 @@ public class Vec3d implements Externalizable, Cloneable {
     }
 
     public double getZ() {
-        return z;
+        return this.z;
     }
 
     public void setZ(double z) {
@@ -69,15 +69,15 @@ public class Vec3d implements Externalizable, Cloneable {
     }
 
     public Vec3d d() {
-        return new Vec3d(x, y, z);
+        return new Vec3d(this.x, this.y, this.z);
     }
 
     public Vec3f f() {
-        return new Vec3f((float) x, (float) y, (float) z);
+        return new Vec3f((float) this.x, (float) this.y, (float) this.z);
     }
 
     public Vec3i i() {
-        return new Vec3i((int) x, (int) y, (int) z);
+        return new Vec3i((int) this.x, (int) this.y, (int) this.z);
     }
 
     @Override
@@ -97,30 +97,30 @@ public class Vec3d implements Externalizable, Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Vec3d vector4i = (Vec3d) o;
-        return getX() == vector4i.getX() && getY() == vector4i.getY() && getZ() == vector4i.getZ();
+        return this.getX() == vector4i.getX() && this.getY() == vector4i.getY() && this.getZ() == vector4i.getZ();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getZ());
+        return Objects.hash(this.getX(), this.getY(), this.getZ());
     }
 
     @Override
     public String toString() {
         return "Vector4i{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
+                "x=" + this.x +
+                ", y=" + this.y +
+                ", z=" + this.z +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeDouble(x);
-        out.writeDouble(y);
-        out.writeDouble(z);
+        out.writeDouble(this.x);
+        out.writeDouble(this.y);
+        out.writeDouble(this.z);
     }
 
     @Override

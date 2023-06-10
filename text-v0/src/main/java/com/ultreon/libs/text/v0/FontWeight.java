@@ -15,7 +15,7 @@ public enum FontWeight {
     }
 
     public float getWeight() {
-        return weight;
+        return this.weight;
     }
     @NotNull
     public static FontWeight closestTo(float weight) {

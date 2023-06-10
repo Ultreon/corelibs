@@ -15,16 +15,16 @@ public final class ValueEventResult<T> {
     }
 
     public boolean isInterrupted() {
-        return interrupted;
+        return this.interrupted;
     }
 
     public boolean isCanceled() {
-        return canceled;
+        return this.canceled;
     }
 
     @Nullable
     public T getValue() {
-        return value;
+        return this.value;
     }
 
     public static <T> ValueEventResult<T> pass() {

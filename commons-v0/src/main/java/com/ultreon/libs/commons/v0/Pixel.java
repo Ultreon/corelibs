@@ -19,18 +19,18 @@ public class Pixel implements Serializable {
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     public Point getPos() {
-        return pos;
+        return this.pos;
     }
 
     public int getX() {
-        return pos.x;
+        return this.pos.x;
     }
 
     public int getY() {
-        return pos.y;
+        return this.pos.y;
     }
 }

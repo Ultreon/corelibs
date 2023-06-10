@@ -9,7 +9,7 @@ public interface IDownloader {
     default CompletableFuture<Void> downloadAsync() {
         return CompletableFuture.runAsync(() -> {
             try {
-                downloadSync();
+                this.downloadSync();
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }

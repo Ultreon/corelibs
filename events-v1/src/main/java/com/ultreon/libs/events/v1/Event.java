@@ -23,7 +23,7 @@ public final class Event<T> {
     }
 
     public T factory() {
-        return factory.create(listeners);
+        return this.factory.create(this.listeners);
     }
 
     @SafeVarargs

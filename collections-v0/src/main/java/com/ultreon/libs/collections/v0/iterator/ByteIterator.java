@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface ByteIterator extends Iterator<Byte> {
     @Override
     default Byte next() {
-        return nextByte();
+        return this.nextByte();
     }
 
     byte nextByte();

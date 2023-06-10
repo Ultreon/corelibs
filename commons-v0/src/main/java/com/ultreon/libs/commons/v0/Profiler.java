@@ -13,7 +13,7 @@ public class Profiler {
     }
 
     public void startSection(String name) {
-        start.put(name, System.currentTimeMillis());
+        this.start.put(name, System.currentTimeMillis());
     }
 
     public void endSection(String name) {
@@ -21,16 +21,16 @@ public class Profiler {
         if (start == null) start = 0L;
         long end = System.currentTimeMillis();
         long time = end - start;
-        values.put(name, time);
+        this.values.put(name, time);
     }
 
     public Map<String, Long> end() {
-        return Collections.unmodifiableMap(values);
+        return Collections.unmodifiableMap(this.values);
     }
 
     public void section(String name, Runnable block) {
-        startSection(name);
+        this.startSection(name);
         block.run();
-        endSection(name);
+        this.endSection(name);
     }
 }

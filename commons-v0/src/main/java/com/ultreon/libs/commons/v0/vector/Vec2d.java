@@ -20,7 +20,7 @@ public class Vec2d implements Externalizable, Cloneable {
     }
 
     public double getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(double x) {
@@ -28,7 +28,7 @@ public class Vec2d implements Externalizable, Cloneable {
     }
 
     public double getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(double y) {
@@ -36,28 +36,28 @@ public class Vec2d implements Externalizable, Cloneable {
     }
 
     public void mul(double i) {
-        x *= i;
-        y *= i;
+        this.x *= i;
+        this.y *= i;
     }
 
     public void div(double i) {
-        x /= i;
-        y /= i;
+        this.x /= i;
+        this.y /= i;
     }
 
     public void add(double i) {
-        x += i;
-        y += i;
+        this.x += i;
+        this.y += i;
     }
 
     public void sub(double i) {
-        x -= i;
-        y -= i;
+        this.x -= i;
+        this.y -= i;
     }
 
     public void pow(double i) {
-        x = Math.pow(x, i);
-        y = Math.pow(y, i);
+        this.x = Math.pow(this.x, i);
+        this.y = Math.pow(this.y, i);
     }
 
     public void mul(double x, double y) {
@@ -110,35 +110,35 @@ public class Vec2d implements Externalizable, Cloneable {
     }
 
     public Vec2d d() {
-        return new Vec2d(x, y);
+        return new Vec2d(this.x, this.y);
     }
 
     public Vec2f f() {
-        return new Vec2f((float) x, (float) y);
+        return new Vec2f((float) this.x, (float) this.y);
     }
 
     public Vec2i i() {
-        return new Vec2i((int) x, (int) y);
+        return new Vec2i((int) this.x, (int) this.y);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Vec2d vec2D = (Vec2d) o;
-        return Double.compare(vec2D.getX(), getX()) == 0 && Double.compare(vec2D.getY(), getY()) == 0;
+        return Double.compare(vec2D.getX(), this.getX()) == 0 && Double.compare(vec2D.getY(), this.getY()) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY());
+        return Objects.hash(this.getX(), this.getY());
     }
 
     @Override
     public String toString() {
         return "Vector2d{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + this.x +
+                ", y=" + this.y +
                 '}';
     }
 
@@ -157,8 +157,8 @@ public class Vec2d implements Externalizable, Cloneable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeDouble(x);
-        out.writeDouble(y);
+        out.writeDouble(this.x);
+        out.writeDouble(this.y);
     }
 
     @Override

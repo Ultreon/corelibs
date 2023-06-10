@@ -8,33 +8,33 @@ public record FloatSize(float width, float height) {
     }
 
     public FloatSize grown(float amount) {
-        return new FloatSize(Math.max(width + amount, 0), Math.max(height + amount, 0));
+        return new FloatSize(Math.max(this.width + amount, 0), Math.max(this.height + amount, 0));
     }
 
     public FloatSize shrunk(float amount) {
-        return new FloatSize(Math.max(width - amount, 0), Math.max(height - amount, 0));
+        return new FloatSize(Math.max(this.width - amount, 0), Math.max(this.height - amount, 0));
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
 
         FloatSize floatSize = (FloatSize) o;
 
-        if (Float.compare(floatSize.width, width) != 0) return false;
-        return Float.compare(floatSize.height, height) == 0;
+        if (Float.compare(floatSize.width, this.width) != 0) return false;
+        return Float.compare(floatSize.height, this.height) == 0;
     }
 
     @Override
     public int hashCode() {
-        int result = (width != 0.0f ? Float.floatToIntBits(width) : 0);
-        result = 31 * result + (height != 0.0f ? Float.floatToIntBits(height) : 0);
+        int result = (this.width != 0.0f ? Float.floatToIntBits(this.width) : 0);
+        result = 31 * result + (this.height != 0.0f ? Float.floatToIntBits(this.height) : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return width + "x" + height;
+        return this.width + "x" + this.height;
     }
 }

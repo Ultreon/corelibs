@@ -8,29 +8,29 @@ import java.util.Map;
 import java.util.Set;
 
 public class ResourcePackage {
-    private final Map<Identifier, Resource> resources;
+    protected final Map<Identifier, Resource> resources;
 
     public ResourcePackage(Map<Identifier, Resource> resources) {
         this.resources = resources;
     }
 
     public ResourcePackage() {
-        resources = new HashMap<>();
+        this.resources = new HashMap<>();
     }
 
     public boolean has(Identifier entry) {
-        return resources.containsKey(entry);
+        return this.resources.containsKey(entry);
     }
 
     public Set<Identifier> entries() {
-        return resources.keySet();
+        return this.resources.keySet();
     }
 
     public Resource get(Identifier entry) {
-        return resources.get(entry);
+        return this.resources.get(entry);
     }
 
     public Map<Identifier, Resource> mapEntries() {
-        return Collections.unmodifiableMap(resources);
+        return Collections.unmodifiableMap(this.resources);
     }
 }

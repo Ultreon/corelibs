@@ -19,7 +19,7 @@ public class Pair<T1, T2> implements Cloneable {
     }
 
     public T1 getFirst() {
-        return first;
+        return this.first;
     }
 
     public void setFirst(T1 first) {
@@ -27,7 +27,7 @@ public class Pair<T1, T2> implements Cloneable {
     }
 
     public T2 getSecond() {
-        return second;
+        return this.second;
     }
 
     public void setSecond(T2 second) {
@@ -37,19 +37,19 @@ public class Pair<T1, T2> implements Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Pair<?, ?> pair = (Pair<?, ?>) o;
-        return Objects.equals(getFirst(), pair.getFirst()) && Objects.equals(getSecond(), pair.getSecond());
+        return Objects.equals(this.getFirst(), pair.getFirst()) && Objects.equals(this.getSecond(), pair.getSecond());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirst(), getSecond());
+        return Objects.hash(this.getFirst(), this.getSecond());
     }
 
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ')';
+        return "(" + this.first + ", " + this.second + ')';
     }
 
     @Override

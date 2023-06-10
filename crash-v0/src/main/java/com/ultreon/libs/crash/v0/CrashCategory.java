@@ -36,19 +36,19 @@ public class CrashCategory {
     }
 
     public String getDetails() {
-        return details;
+        return this.details;
     }
 
     public Throwable getThrowable() {
-        return throwable;
+        return this.throwable;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(details).append(": \r\n");
+        sb.append(this.details).append(": \r\n");
 
-        if (entries.size() > 0) {
-            ArrayList<AbstractMap.SimpleEntry<String, String>> simpleEntries = new ArrayList<>(entries);
+        if (this.entries.size() > 0) {
+            ArrayList<AbstractMap.SimpleEntry<String, String>> simpleEntries = new ArrayList<>(this.entries);
             for (int i = 0; i < simpleEntries.size() - 1; i++) {
                 AbstractMap.SimpleEntry<String, String> entry = simpleEntries.get(i);
                 sb.append("   ");
@@ -66,11 +66,11 @@ public class CrashCategory {
             sb.append(System.lineSeparator());
         }
 
-        if (throwable != null) {
+        if (this.throwable != null) {
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
 
-            throwable.printStackTrace(writer);
+            this.throwable.printStackTrace(writer);
             writer.flush();
 
             StringBuffer buffer = stringWriter.getBuffer();

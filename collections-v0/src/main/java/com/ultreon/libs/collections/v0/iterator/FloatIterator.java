@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface FloatIterator extends Iterator<Float> {
     @Override
     default Float next() {
-        return nextFloat();
+        return this.nextFloat();
     }
 
     float nextFloat();

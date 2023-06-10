@@ -65,7 +65,7 @@ public class Downloader implements IDownloader {
     @Override
     public float getPercent() {
         if (this.length == -1) return Float.MIN_VALUE;
-        return 100 * getRatio();
+        return 100 * this.getRatio();
     }
 
     @Override

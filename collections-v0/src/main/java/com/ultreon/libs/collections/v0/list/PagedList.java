@@ -37,7 +37,7 @@ public class PagedList<T> extends ArrayList<T> {
     }
 
     public List<T> getFullPage(int page) {
-        return super.subList((page * pageSize), (page * pageSize) + pageSize - 1);
+        return super.subList((page * this.pageSize), (page * this.pageSize) + this.pageSize - 1);
     }
 
     /**
@@ -49,10 +49,10 @@ public class PagedList<T> extends ArrayList<T> {
      * @return the object at the page and index.
      */
     public T get(int page, int index) {
-        if (index >= pageSize) {
+        if (index >= this.pageSize) {
             return null;
         }
 
-        return super.get((page * pageSize) + index);
+        return super.get((page * this.pageSize) + index);
     }
 }

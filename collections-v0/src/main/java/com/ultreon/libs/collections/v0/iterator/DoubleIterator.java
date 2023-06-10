@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface DoubleIterator extends Iterator<Double> {
     @Override
     default Double next() {
-        return nextDouble();
+        return this.nextDouble();
     }
 
     double nextDouble();

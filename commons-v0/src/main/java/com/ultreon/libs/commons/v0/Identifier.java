@@ -88,21 +88,21 @@ public final class Identifier {
     @Contract(value = "null -> false", pure = true)
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Identifier that = (Identifier) o;
-        return location.equals(that.location) && path.equals(that.path);
+        return this.location.equals(that.location) && this.path.equals(that.path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(location, path);
+        return Objects.hash(this.location, this.path);
     }
 
     @NotNull
     @Override
     @Contract(pure = true)
     public String toString() {
-        return location + ":" + path;
+        return this.location + ":" + this.path;
     }
 
     /**
@@ -111,7 +111,7 @@ public final class Identifier {
     @NotNull
     @Contract(pure = true)
     public String location() {
-        return location;
+        return this.location;
     }
 
     /**
@@ -120,12 +120,12 @@ public final class Identifier {
     @NotNull
     @Contract(pure = true)
     public String path() {
-        return path;
+        return this.path;
     }
 
     @Contract("_ -> new")
     public Identifier withLocation(String location) {
-        return new Identifier(location, path);
+        return new Identifier(location, this.path);
     }
 
     @Contract("_ -> new")
@@ -149,22 +149,22 @@ public final class Identifier {
     }
 
     public <T> T reduce(BiFunction<String, String, T> func) {
-        return func.apply(location, path);
+        return func.apply(this.location, this.path);
     }
 
     @NotNull
     @Unmodifiable
     @Contract(value = "-> new", pure = true)
     public List<String> toList() {
-        return List.of(location, path);
+        return List.of(this.location, this.path);
     }
 
     @NotNull
     @Contract(" -> new")
     public ArrayList<String> toArrayList() {
         ArrayList<String> list = new ArrayList<>();
-        list.add(location);
-        list.add(path);
+        list.add(this.location);
+        list.add(this.path);
         return list;
     }
 
@@ -172,18 +172,18 @@ public final class Identifier {
     @UnmodifiableView
     @Contract(pure = true)
     public Collection<String> toCollection() {
-        return toList();
+        return this.toList();
     }
 
     @NotNull
     @Contract(value = " -> new", pure = true)
     public Pair<String, String> toPair() {
-        return new Pair<>(location, path);
+        return new Pair<>(this.location, this.path);
     }
 
     @NotNull
     @Contract(value = " -> new", pure = true)
     public String[] toArray() {
-        return new String[]{location, path};
+        return new String[]{this.location, this.path};
     }
 }

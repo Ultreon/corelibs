@@ -7,7 +7,7 @@ public interface DoubleConsumer extends Consumer<Double> {
     @Override
     @Deprecated
     default void accept(Double aDouble) {
-        accept((double)aDouble);
+        this.accept((double)aDouble);
     }
 
     void accept(double v);

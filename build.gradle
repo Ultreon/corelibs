@@ -12,7 +12,7 @@ subprojects {
 
     archivesBaseName = "corelibs-$project.name"
 
-    ext.admin = hasProperty('sonatypeUsername')
+    def admin = rootProject.hasProperty('sonatypeUsername')
 
     repositories {
         mavenCentral()
@@ -48,13 +48,13 @@ subprojects {
             }
         }
         repositories {
-            maven {
-                name "Sonatype"
-                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-                if (admin) {
+            if (admin) {
+                maven {
+                    name "Sonatype"
+                    url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
                     credentials {
-                        username property("sonatypeUsername").toString()
-                        password property("sonatypePassword").toString()
+                        username rootProject.property("sonatypeUsername").toString()
+                        password rootProject.property("sonatypePassword").toString()
                     }
                 }
             }

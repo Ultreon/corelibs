@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface IntIterator extends Iterator<Integer> {
     @Override
     default Integer next() {
-        return nextInt();
+        return this.nextInt();
     }
 
     int nextInt();

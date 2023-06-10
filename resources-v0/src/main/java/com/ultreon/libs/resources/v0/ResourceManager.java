@@ -4,6 +4,7 @@ import com.ultreon.libs.commons.v0.Identifier;
 import com.ultreon.libs.commons.v0.Logger;
 import com.ultreon.libs.commons.v0.exceptions.SyntaxException;
 import com.ultreon.libs.functions.v0.misc.ThrowingSupplier;
+import com.ultreon.libs.resources.v0.android.DeferredResourcePackage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +21,7 @@ import java.util.zip.ZipInputStream;
 
 public class ResourceManager {
     private final Map<Identifier, byte[]> assets = new ConcurrentHashMap<>();
-    private final List<ResourcePackage> resourcePackages = new ArrayList<>();
+    protected final List<ResourcePackage> resourcePackages = new ArrayList<>();
     public static Logger logger = (level, msg, t) -> {};
     private final String root;
 
@@ -29,13 +30,13 @@ public class ResourceManager {
     }
 
     public InputStream openResourceStream(Identifier entry) {
-        @Nullable Resource resource = getResource(entry);
+        @Nullable Resource resource = this.getResource(entry);
         return resource == null ? null : resource.openStream();
     }
 
     @Nullable
     public Resource getResource(Identifier entry) {
-        for (ResourcePackage resourcePackage : resourcePackages) {
+        for (ResourcePackage resourcePackage : this.resourcePackages) {
             if (resourcePackage.has(entry)) {
                 return resourcePackage.get(entry);
             }
@@ -45,6 +46,10 @@ public class ResourceManager {
 
 
         return null;
+    }
+
+    public void importDeferredPackage(Class<?> ref) {
+        this.resourcePackages.add(new DeferredResourcePackage(ref, this.root));
     }
 
     public void importPackage(URL url) throws IOException {
@@ -74,7 +79,7 @@ public class ResourceManager {
             if (file.getName().endsWith(".jar") || file.getName().endsWith(".zip")) {
                 this.importFilePackage(new ZipInputStream(new FileInputStream(file)));
             } else {
-                this.logger.warn("Resource package isn't a .jar or .zip file: " + file.getPath());
+                logger.warn("Resource package isn't a .jar or .zip file: " + file.getPath());
             }
         } else if (file.isDirectory()) {
             this.importDirectoryPackage(file);
@@ -91,7 +96,7 @@ public class ResourceManager {
             Map<Identifier, Resource> map = new HashMap<>();
 
             // Get assets directory.
-            File assets = new File(file, root + "/");
+            File assets = new File(file, this.root + "/");
 
             // Check if assets directory exists.
             if (assets.exists()) {
@@ -142,7 +147,7 @@ public class ResourceManager {
                     }
                 }
 
-                resourcePackages.add(new ResourcePackage(map));
+                this.resourcePackages.add(new ResourcePackage(map));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -167,7 +172,7 @@ public class ResourceManager {
 
                     // Check if it isn't a directory, because we want a file.
                     if (!entry.isDirectory()) {
-                        addEntry(map, name, sup);
+                        this.addEntry(map, name, sup);
                     }
                     file.closeEntry();
                 }
@@ -175,7 +180,7 @@ public class ResourceManager {
                 e.printStackTrace();
             }
 
-            resourcePackages.add(new ResourcePackage(map));
+            this.resourcePackages.add(new ResourcePackage(map));
         }
     }
 
@@ -183,7 +188,7 @@ public class ResourceManager {
         String[] splitPath = name.split("/", 3);
 
         if (splitPath.length >= 3) {
-            if (name.startsWith(root + "/")) {
+            if (name.startsWith(this.root + "/")) {
                 // Get namespace and path from split path
                 String namespace = splitPath[1];
                 String path = splitPath[2];
@@ -207,7 +212,7 @@ public class ResourceManager {
     @NotNull
     public List<byte[]> getAllDataByPath(@NotNull String path) {
         List<byte[]> data = new ArrayList<>();
-        for (var resourcePackage : resourcePackages) {
+        for (var resourcePackage : this.resourcePackages) {
             var identifierResourceMap = resourcePackage.mapEntries();
             for (var entry : identifierResourceMap.entrySet()) {
                 if (entry.getKey().path().equals(path)) {
@@ -225,7 +230,7 @@ public class ResourceManager {
     @NotNull
     public List<byte[]> getAllDataById(@NotNull Identifier id) {
         List<byte[]> data = new ArrayList<>();
-        for (var resourcePackage : resourcePackages) {
+        for (var resourcePackage : this.resourcePackages) {
             var identifierResourceMap = resourcePackage.mapEntries();
             for (var entry : identifierResourceMap.entrySet()) {
                 if (entry.getKey().equals(id)) {
@@ -243,6 +248,6 @@ public class ResourceManager {
     }
 
     public String getRoot() {
-        return root;
+        return this.root;
     }
 }

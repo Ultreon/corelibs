@@ -7,7 +7,7 @@ public interface ShortConsumer extends Consumer<Short> {
     @Override
     @Deprecated
     default void accept(Short aShort) {
-        accept((short)aShort);
+        this.accept((short)aShort);
     }
 
     void accept(short v);

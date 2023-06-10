@@ -9,6 +9,6 @@ public class LiteralText extends MutableText {
 
     @Override
     protected String createString() {
-        return text;
+        return this.text;
     }
 }

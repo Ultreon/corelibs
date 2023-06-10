@@ -10,11 +10,11 @@ public final class EventResult {
     }
 
     public boolean isInterrupted() {
-        return interrupted;
+        return this.interrupted;
     }
 
     public boolean isCanceled() {
-        return canceled;
+        return this.canceled;
     }
 
     public static EventResult pass() {

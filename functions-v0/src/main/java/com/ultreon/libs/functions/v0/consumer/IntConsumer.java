@@ -7,7 +7,7 @@ public interface IntConsumer extends Consumer<Integer> {
     @Override
     @Deprecated
     default void accept(Integer aInteger) {
-        accept((int)aInteger);
+        this.accept((int)aInteger);
     }
 
     void accept(int v);

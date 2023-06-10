@@ -7,7 +7,7 @@ public interface Double2DoubleFunction extends Function<Double, Double> {
     @Override
     @Deprecated
     default Double apply(Double aDouble) {
-        return apply((double) aDouble);
+        return this.apply((double) aDouble);
     }
 
     double apply(double f);

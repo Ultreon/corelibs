@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 public interface BooleanSupplier extends Supplier<Boolean> {
     @Override
     default Boolean get() {
-        return getBoolean();
+        return this.getBoolean();
     }
 
     boolean getBoolean();

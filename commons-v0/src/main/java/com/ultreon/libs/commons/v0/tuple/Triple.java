@@ -21,7 +21,7 @@ public class Triple<T1, T2, T3> implements Cloneable {
     }
 
     public T1 getFirst() {
-        return first;
+        return this.first;
     }
 
     public void setFirst(T1 first) {
@@ -29,7 +29,7 @@ public class Triple<T1, T2, T3> implements Cloneable {
     }
 
     public T2 getSecond() {
-        return second;
+        return this.second;
     }
 
     public void setSecond(T2 second) {
@@ -37,7 +37,7 @@ public class Triple<T1, T2, T3> implements Cloneable {
     }
 
     public T3 getThird() {
-        return third;
+        return this.third;
     }
 
     public void setThird(T3 third) {
@@ -47,19 +47,19 @@ public class Triple<T1, T2, T3> implements Cloneable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Triple<?, ?, ?> triple = (Triple<?, ?, ?>) o;
-        return Objects.equals(getFirst(), triple.getFirst()) && Objects.equals(getSecond(), triple.getSecond()) && Objects.equals(getThird(), triple.getThird());
+        return Objects.equals(this.getFirst(), triple.getFirst()) && Objects.equals(this.getSecond(), triple.getSecond()) && Objects.equals(this.getThird(), triple.getThird());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirst(), getSecond(), getThird());
+        return Objects.hash(this.getFirst(), this.getSecond(), this.getThird());
     }
 
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ", " + third + ')';
+        return "(" + this.first + ", " + this.second + ", " + this.third + ')';
     }
 
     @Override

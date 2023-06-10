@@ -37,14 +37,14 @@ public class SizedList<T> {
      * @throws ValueExistsException as the exception it says: if the value already exists.
      */
     public int add(double size, T value) {
-        if (values.contains(value)) throw new ValueExistsException();
+        if (this.values.contains(value)) throw new ValueExistsException();
 
-        sizes.add(size);
-        values.add(value);
+        this.sizes.add(size);
+        this.values.add(value);
 
-        totalSize += size;
+        this.totalSize += size;
 
-        return sizes.lastIndexOf(size);
+        return this.sizes.lastIndexOf(size);
     }
 
     /**
@@ -53,10 +53,10 @@ public class SizedList<T> {
      * <i>In case create emergency.</i>
      */
     public void clear() {
-        sizes.clear();
-        values.clear();
+        this.sizes.clear();
+        this.values.clear();
 
-        totalSize = 0d;
+        this.totalSize = 0d;
     }
 
     /**
@@ -68,10 +68,10 @@ public class SizedList<T> {
      * @return the index.
      */
     public int insert(int index, double size, T value) {
-        sizes.add(index, size);
-        values.add(index, value);
+        this.sizes.add(index, size);
+        this.values.add(index, value);
 
-        totalSize += size;
+        this.totalSize += size;
 
         return index;
     }
@@ -83,7 +83,7 @@ public class SizedList<T> {
      * @return the size.
      */
     public Double getSize(int index) {
-        return sizes.get(index);
+        return this.sizes.get(index);
     }
 
     /**
@@ -92,9 +92,9 @@ public class SizedList<T> {
      * @param index the partition index.
      */
     public void remove(int index) {
-        totalSize -= sizes.get(index);
-        sizes.remove(index);
-        values.remove(index);
+        this.totalSize -= this.sizes.get(index);
+        this.sizes.remove(index);
+        this.values.remove(index);
     }
 
     /**
@@ -107,8 +107,8 @@ public class SizedList<T> {
     public Range getRange(int index) {
         Range range = null;
         double currentSize = 0;
-        for (int i = 0; i < sizes.size(); i++) {
-            double newSize = currentSize + sizes.get(i);
+        for (int i = 0; i < this.sizes.size(); i++) {
+            double newSize = currentSize + this.sizes.get(i);
             if (i == index) {
                 range = new Range(currentSize, newSize);
             }
@@ -130,16 +130,16 @@ public class SizedList<T> {
      * @return the value.
      */
     public T getValue(double drIndex) {
-        if (!((0d <= drIndex) && (totalSize > drIndex))) {
-            throw new OutOfRangeException(drIndex, 0, totalSize);
+        if (!((0d <= drIndex) && (this.totalSize > drIndex))) {
+            throw new OutOfRangeException(drIndex, 0, this.totalSize);
         }
 
         T value = null;
         double currentSize = -1;
-        for (int i = 0; i < sizes.size(); i++) {
-            double newSize = currentSize + sizes.get(i);
+        for (int i = 0; i < this.sizes.size(); i++) {
+            double newSize = currentSize + this.sizes.get(i);
             if ((currentSize < drIndex) && (newSize >= drIndex)) {
-                value = values.get(i);
+                value = this.values.get(i);
             }
 
             currentSize = newSize;
@@ -156,14 +156,14 @@ public class SizedList<T> {
      * @return the new size.
      */
     public Double edit(T value, double size) {
-        int index = indexOf(value);
+        int index = this.indexOf(value);
 
-        if (index >= sizes.size()) throw new OutOfRangeException(index, 0, sizes.size());
+        if (index >= this.sizes.size()) throw new OutOfRangeException(index, 0, this.sizes.size());
 
-        totalSize = totalSize - sizes.get(index) + size;
+        this.totalSize = this.totalSize - this.sizes.get(index) + size;
 
-        sizes.set(index, size);
-        return sizes.get(index);
+        this.sizes.set(index, size);
+        return this.sizes.get(index);
     }
 
     /**
@@ -175,15 +175,15 @@ public class SizedList<T> {
      * @return the new size.
      */
     public Double edit(T value, double size, T newValue) {
-        int index = indexOf(value);
+        int index = this.indexOf(value);
 
-        if (index >= sizes.size()) throw new OutOfRangeException(index, 0, sizes.size());
+        if (index >= this.sizes.size()) throw new OutOfRangeException(index, 0, this.sizes.size());
 
-        totalSize = totalSize - sizes.get(index) + size;
+        this.totalSize = this.totalSize - this.sizes.get(index) + size;
 
-        sizes.set(index, size);
-        values.set(index, newValue);
-        return sizes.get(index);
+        this.sizes.set(index, size);
+        this.values.set(index, newValue);
+        return this.sizes.get(index);
     }
 
     /**
@@ -194,7 +194,7 @@ public class SizedList<T> {
     public Range[] getRanges() {
         Range[] ranges = new Range[]{};
         double currentSize = 0;
-        for (Double size : sizes) {
+        for (Double size : this.sizes) {
             double newSize = currentSize + size;
 
             ranges = ArrayUtils.add(ranges, new Range(currentSize, newSize));
@@ -205,7 +205,7 @@ public class SizedList<T> {
     }
 
     public Double getTotalSize() {
-        return totalSize;
+        return this.totalSize;
     }
 
     /**
@@ -215,7 +215,7 @@ public class SizedList<T> {
      * @return the index.
      */
     public int indexOf(T value) {
-        return values.indexOf(value);
+        return this.values.indexOf(value);
     }
 
     /**
@@ -225,22 +225,22 @@ public class SizedList<T> {
      * @return the index.
      */
     public Range rangeOf(T value) {
-        int index = values.indexOf(value);
+        int index = this.values.indexOf(value);
 
-        return getRange(index);
+        return this.getRange(index);
     }
 
     public void editLengths(Applier<T, Double> applier) {
         double currentSize = 0;
-        List<Double> sizes2 = new ArrayList<>(sizes);
+        List<Double> sizes2 = new ArrayList<>(this.sizes);
         for (int i = 0; i < sizes2.size(); i++) {
-            double applierSize = applier.apply(values.get(i));
+            double applierSize = applier.apply(this.values.get(i));
             double newSize = currentSize + sizes2.get(i);
-            totalSize = totalSize - sizes2.get(i) + applierSize;
+            this.totalSize = this.totalSize - sizes2.get(i) + applierSize;
             sizes2.set(i, applierSize);
 
             currentSize = newSize;
         }
-        sizes = sizes2;
+        this.sizes = sizes2;
     }
 }

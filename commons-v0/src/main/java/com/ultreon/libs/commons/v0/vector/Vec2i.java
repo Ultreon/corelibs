@@ -25,7 +25,7 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -33,7 +33,7 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -41,28 +41,28 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     public void mul(int i) {
-        x *= i;
-        y *= i;
+        this.x *= i;
+        this.y *= i;
     }
 
     public void div(int i) {
-        x /= i;
-        y /= i;
+        this.x /= i;
+        this.y /= i;
     }
 
     public void add(int i) {
-        x += i;
-        y += i;
+        this.x += i;
+        this.y += i;
     }
 
     public void sub(int i) {
-        x -= i;
-        y -= i;
+        this.x -= i;
+        this.y -= i;
     }
 
     public void pow(int i) {
-        x = (int) Math.pow(x, i);
-        y = (int) Math.pow(y, i);
+        this.x = (int) Math.pow(this.x, i);
+        this.y = (int) Math.pow(this.y, i);
     }
 
     public void mul(int x, int y) {
@@ -115,35 +115,35 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     public Vec2d d() {
-        return new Vec2d(x, y);
+        return new Vec2d(this.x, this.y);
     }
 
     public Vec2f f() {
-        return new Vec2f(x, y);
+        return new Vec2f(this.x, this.y);
     }
 
     public Vec2i i() {
-        return new Vec2i(x, y);
+        return new Vec2i(this.x, this.y);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Vec2i vec2I = (Vec2i) o;
-        return getX() == vec2I.getX() && getY() == vec2I.getY();
+        return this.getX() == vec2I.getX() && this.getY() == vec2I.getY();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY());
+        return Objects.hash(this.getX(), this.getY());
     }
 
     @Override
     public String toString() {
         return "Vector2i{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + this.x +
+                ", y=" + this.y +
                 '}';
     }
 
@@ -162,8 +162,8 @@ public class Vec2i implements Externalizable, Cloneable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(x);
-        out.writeInt(y);
+        out.writeInt(this.x);
+        out.writeInt(this.y);
     }
 
     @Override
@@ -173,10 +173,10 @@ public class Vec2i implements Externalizable, Cloneable {
     }
 
     public Dimension toAwtDimension() {
-        return new Dimension(x, y);
+        return new Dimension(this.x, this.y);
     }
 
     public Point toAwtPoint() {
-        return new Point(x, y);
+        return new Point(this.x, this.y);
     }
 }

@@ -7,7 +7,7 @@ import java.util.Iterator;
 public interface LongIterator extends Iterator<Long> {
     @Override
     default Long next() {
-        return nextLong();
+        return this.nextLong();
     }
 
     long nextLong();

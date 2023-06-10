@@ -7,7 +7,7 @@ public interface BooleanConsumer extends Consumer<Boolean> {
     @Override
     @Deprecated
     default void accept(Boolean aBoolean) {
-        accept((boolean)aBoolean);
+        this.accept((boolean)aBoolean);
     }
 
     void accept(boolean v);
