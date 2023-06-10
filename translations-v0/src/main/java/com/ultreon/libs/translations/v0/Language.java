@@ -34,7 +34,7 @@ public class Language {
         JsonElement element = object.get(split[split.length - 1]);
         if (element instanceof JsonPrimitive primitive) {
             String s = primitive.getAsString();
-            return s == null ? "null" : s.formatted(args);
+            return s == null ? "null" : String.format(s, args);
         }
         return null;
     }
