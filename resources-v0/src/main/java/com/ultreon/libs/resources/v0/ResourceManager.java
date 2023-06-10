@@ -30,6 +30,10 @@ public class ResourceManager {
         this.root = root;
     }
 
+    public boolean canScanFiles() {
+        return true;
+    }
+
     public InputStream openResourceStream(Identifier entry) {
         @Nullable Resource resource = this.getResource(entry);
         return resource == null ? null : resource.openStream();
@@ -232,16 +236,13 @@ public class ResourceManager {
     public List<byte[]> getAllDataById(@NotNull Identifier id) {
         List<byte[]> data = new ArrayList<>();
         for (var resourcePackage : this.resourcePackages) {
-            var identifierResourceMap = resourcePackage.mapEntries();
-            for (var entry : identifierResourceMap.entrySet()) {
-                if (entry.getKey().equals(id)) {
-                    var resource = entry.getValue();
-                    if (resource == null) continue;
-                    var bytes = resource.loadOrGet();
-                    if (bytes == null) continue;
+            if (resourcePackage.has(id)) {
+                var resource = resourcePackage.get(id);
+                if (resource == null) continue;
+                var bytes = resource.loadOrGet();
+                if (bytes == null) continue;
 
-                    data.add(resource.getData());
-                }
+                data.add(resource.getData());
             }
         }
 
