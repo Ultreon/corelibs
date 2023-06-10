@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CrashCategory {
     protected final List<AbstractMap.SimpleEntry<String, String>> entries = new ArrayList<>();
@@ -81,7 +82,7 @@ public class CrashCategory {
             }
 
             String s = buffer.toString();
-            List<String> strings = s.lines().toList();
+            List<String> strings = s.lines().collect(Collectors.toList());
             String join = "   " + String.join(System.lineSeparator() + "   ", strings);
 
             sb.append(join);

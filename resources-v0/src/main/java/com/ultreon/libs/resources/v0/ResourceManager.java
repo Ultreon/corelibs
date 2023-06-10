@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -86,7 +87,7 @@ public class ResourceManager {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "SimplifyStreamApiCallChains"})
     private void importDirectoryPackage(File file) {
         // Check if it's a directory.
         assert file.isDirectory();
@@ -110,7 +111,7 @@ public class ResourceManager {
 
                     // Walk assets package.
                     try (Stream<Path> walk = Files.walk(assetsPackage.toPath())) {
-                        for (Path assetPath : walk.toList()) {
+                        for (Path assetPath : walk.collect(Collectors.toList())) {
                             // Convert to file object.
                             File asset = assetPath.toFile();
 

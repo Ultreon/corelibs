@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@SuppressWarnings("SimplifyStreamApiCallChains")
 public final class ApplicationCrash {
     private static final List<Runnable> crashHandlers = new ArrayList<>();
     @NotNull
@@ -16,7 +18,7 @@ public final class ApplicationCrash {
 
     public void printCrash() {
         String crashString = this.crashLog.toString();
-        List<String> strings = crashString.lines().toList();
+        List<String> strings = crashString.lines().collect(Collectors.toList());
         for (String string : strings) {
             System.err.println(string);
         }
