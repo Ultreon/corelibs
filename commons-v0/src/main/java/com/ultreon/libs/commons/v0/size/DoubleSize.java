@@ -1,9 +1,24 @@
 package com.ultreon.libs.commons.v0.size;
 
-public record DoubleSize(double width, double height) {
-    public DoubleSize {
+import java.util.Objects;
+
+public final class DoubleSize {
+    private final double width;
+    private final double height;
+
+     public DoubleSize(double width, double height) {
         if (width < 0) throw new IllegalArgumentException("Width is negative");
         if (height < 0) throw new IllegalArgumentException("Height is negative");
+        this.width = width;
+        this.height = height;
+    }
+
+    public double width() {
+        return this.width;
+    }
+
+    public double height() {
+        return this.height;
     }
 
     public DoubleSize grown(double amount) {

@@ -4,10 +4,7 @@ import com.ultreon.libs.commons.v0.tuple.Pair;
 import com.ultreon.libs.commons.v0.exceptions.SyntaxException;
 import org.jetbrains.annotations.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -156,7 +153,7 @@ public final class Identifier {
     @Unmodifiable
     @Contract(value = "-> new", pure = true)
     public List<String> toList() {
-        return List.of(this.location, this.path);
+        return Arrays.asList(this.location, this.path);
     }
 
     @NotNull

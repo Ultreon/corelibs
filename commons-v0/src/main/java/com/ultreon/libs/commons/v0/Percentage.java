@@ -2,7 +2,6 @@ package com.ultreon.libs.commons.v0;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -10,14 +9,17 @@ import java.io.Serializable;
  *
  * @author Qboi
  */
-public record Percentage(double percentage) implements Serializable, Comparable<Percentage> {
-    @Serial
+public class Percentage implements Serializable, Comparable<Percentage> {
+    private final double percentage;
+
+    public double percentage() {
+        return this.percentage;
+    }
+
     private static final long serialVersionUID = 0L;
 
-    /**
-     *
-     */
-    public Percentage {
+    public Percentage(double percentage) {
+        this.percentage = percentage;
     }
 
     public static Percentage toPercentage(double value) {

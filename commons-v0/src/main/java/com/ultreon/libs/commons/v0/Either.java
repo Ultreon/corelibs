@@ -90,7 +90,19 @@ public class Either<L, R> {
         else if (this.right != null) onRight.accept(this.right.value);
     }
 
-    private record Left<L>(L value) { }
+    private static class Left<L> {
+        private final L value;
 
-    private record Right<R>(R value) { }
+        public Left(L value) {
+            this.value = value;
+        }
+    }
+
+    private static class Right<R> {
+        private final R value;
+
+        public Right(R value) {
+            this.value = value;
+        }
+    }
 }

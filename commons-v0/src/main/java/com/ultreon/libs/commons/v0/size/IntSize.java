@@ -1,16 +1,30 @@
 package com.ultreon.libs.commons.v0.size;
 
 import java.awt.*;
+import java.util.Objects;
 
-public record IntSize(int width, int height) {
-    public IntSize {
+public final class IntSize {
+    private final int width;
+    private final int height;
+
+    public IntSize(int width, int height) {
         if (width < 0) throw new IllegalArgumentException("Width is negative");
         if (height < 0) throw new IllegalArgumentException("Height is negative");
+        this.width = width;
+        this.height = height;
 
     }
 
     public IntSize(Dimension size) {
         this(size.width, size.height);
+    }
+
+    public int width() {
+        return this.width;
+    }
+
+    public int height() {
+        return this.height;
     }
 
     public IntSize grown(int amount) {

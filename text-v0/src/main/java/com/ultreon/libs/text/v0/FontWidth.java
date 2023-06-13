@@ -19,7 +19,7 @@ public enum FontWidth {
     }
     @NotNull
     public static FontWidth closestTo(float width) {
-        var lastDiff = Float.MAX_VALUE;
+        float lastDiff = Float.MAX_VALUE;
         FontWidth cur = null;
         for (FontWidth value : values()) {
             if (Mth.diff(width, value.width) < lastDiff) {
@@ -33,7 +33,7 @@ public enum FontWidth {
 
     @NotNull
     public static FontWidth closestTo(float width, Collection<FontWidth> values) {
-        var lastDiff = Float.MAX_VALUE;
+        float lastDiff = Float.MAX_VALUE;
         FontWidth cur = null;
         for (FontWidth value : values) {
             if (Mth.diff(width, value.width) < lastDiff) {

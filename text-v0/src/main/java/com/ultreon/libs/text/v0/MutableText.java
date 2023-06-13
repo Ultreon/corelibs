@@ -18,7 +18,7 @@ public abstract class MutableText extends TextObject {
 
     @Override
     public AttributedString getAttrString() {
-        var builder = new AttributedStringBuilder();
+        AttributedStringBuilder builder = new AttributedStringBuilder();
         String string = this.createString();
         if (!string.isEmpty()) builder.append(new AttributedString(string, this.getAttrs()));
         for (TextObject extra : this.extras) {
@@ -30,7 +30,7 @@ public abstract class MutableText extends TextObject {
 
     @Override
     public final String getText() {
-        var builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         builder.append(this.createString());
         for (TextObject extra : this.extras) {
             builder.append(extra.getText());

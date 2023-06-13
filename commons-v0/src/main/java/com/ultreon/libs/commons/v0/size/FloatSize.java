@@ -1,10 +1,23 @@
 package com.ultreon.libs.commons.v0.size;
 
-public record FloatSize(float width, float height) {
-    public FloatSize {
+public final class FloatSize {
+    private final float width;
+    private final float height;
+
+    public FloatSize(float width, float height) {
         if (width < 0) throw new IllegalArgumentException("Width is negative");
         if (height < 0) throw new IllegalArgumentException("Height is negative");
+        this.width = width;
+        this.height = height;
 
+    }
+
+    public float width() {
+        return this.width;
+    }
+
+    public float height() {
+        return this.height;
     }
 
     public FloatSize grown(float amount) {

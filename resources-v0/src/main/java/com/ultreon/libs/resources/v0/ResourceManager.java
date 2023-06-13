@@ -3,6 +3,7 @@ package com.ultreon.libs.resources.v0;
 import com.ultreon.libs.commons.v0.Identifier;
 import com.ultreon.libs.commons.v0.Logger;
 import com.ultreon.libs.commons.v0.exceptions.SyntaxException;
+import com.ultreon.libs.commons.v0.util.IOUtils;
 import com.ultreon.libs.functions.v0.misc.ThrowingSupplier;
 import com.ultreon.libs.resources.v0.android.DeferredResourcePackage;
 import org.jetbrains.annotations.NotNull;
@@ -82,7 +83,7 @@ public class ResourceManager {
 
         if (file.isFile()) {
             if (file.getName().endsWith(".jar") || file.getName().endsWith(".zip")) {
-                this.importFilePackage(new ZipInputStream(new FileInputStream(file)));
+                this.importFilePackage(new ZipInputStream(Files.newInputStream(file.toPath())));
             } else {
                 logger.warn("Resource package isn't a .jar or .zip file: " + file.getPath());
             }
@@ -91,7 +92,7 @@ public class ResourceManager {
         }
     }
 
-    @SuppressWarnings({"unused", "SimplifyStreamApiCallChains"})
+    @SuppressWarnings({"unused"})
     private void importDirectoryPackage(File file) {
         // Check if it's a directory.
         assert file.isDirectory();
@@ -125,7 +126,7 @@ public class ResourceManager {
                             }
 
                             // Create resource with file input stream.
-                            ThrowingSupplier<InputStream, IOException> sup = () -> new FileInputStream(asset);
+                            ThrowingSupplier<InputStream, IOException> sup = () -> Files.newInputStream(asset.toPath());
                             Resource resource = new Resource(sup);
 
                             // Continue to next file / folder if asset path is the same path as the assets package.
@@ -160,33 +161,33 @@ public class ResourceManager {
     }
 
     private void importFilePackage(ZipInputStream file) throws IOException {
-        try (file) {
-            // Check for .jar files.
-            // Prepare (entry -> resource) mappings.
-            Map<Identifier, Resource> map = new HashMap<>();
+        // Check for .jar files.
+        // Prepare (entry -> resource) mappings.
+        Map<Identifier, Resource> map = new HashMap<>();
 
-            // Create jar file instance from file.
-            try {
-                // Loop jar entries.
-                ZipEntry entry;
-                while ((entry = file.getNextEntry()) != null) {
-                    // Get name create the jar entry.
-                    String name = entry.getName();
-                    byte[] bytes = file.readAllBytes();
-                    ThrowingSupplier<InputStream, IOException> sup = () -> new ByteArrayInputStream(bytes);
+        // Create jar file instance from file.
+        try {
+            // Loop jar entries.
+            ZipEntry entry;
+            while ((entry = file.getNextEntry()) != null) {
+                // Get name create the jar entry.
+                String name = entry.getName();
+                byte[] bytes = IOUtils.readAllBytes(file);
+                ThrowingSupplier<InputStream, IOException> sup = () -> new ByteArrayInputStream(bytes);
 
-                    // Check if it isn't a directory, because we want a file.
-                    if (!entry.isDirectory()) {
-                        this.addEntry(map, name, sup);
-                    }
-                    file.closeEntry();
+                // Check if it isn't a directory, because we want a file.
+                if (!entry.isDirectory()) {
+                    this.addEntry(map, name, sup);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+                file.closeEntry();
             }
-
-            this.resourcePackages.add(new ResourcePackage(map));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        this.resourcePackages.add(new ResourcePackage(map));
+
+        file.close();
     }
 
     private void addEntry(Map<Identifier, Resource> map, String name, ThrowingSupplier<InputStream, IOException> sup) {
@@ -217,11 +218,11 @@ public class ResourceManager {
     @NotNull
     public List<byte[]> getAllDataByPath(@NotNull String path) {
         List<byte[]> data = new ArrayList<>();
-        for (var resourcePackage : this.resourcePackages) {
-            var identifierResourceMap = resourcePackage.mapEntries();
-            for (var entry : identifierResourceMap.entrySet()) {
+        for (ResourcePackage resourcePackage : this.resourcePackages) {
+            Map<Identifier, Resource> identifierResourceMap = resourcePackage.mapEntries();
+            for (Map.Entry<Identifier, Resource> entry : identifierResourceMap.entrySet()) {
                 if (entry.getKey().path().equals(path)) {
-                    var bytes = entry.getValue().loadOrGet();
+                    byte[] bytes = entry.getValue().loadOrGet();
                     if (bytes == null) continue;
 
                     data.add(entry.getValue().getData());
@@ -235,11 +236,11 @@ public class ResourceManager {
     @NotNull
     public List<byte[]> getAllDataById(@NotNull Identifier id) {
         List<byte[]> data = new ArrayList<>();
-        for (var resourcePackage : this.resourcePackages) {
+        for (ResourcePackage resourcePackage : this.resourcePackages) {
             if (resourcePackage.has(id)) {
-                var resource = resourcePackage.get(id);
+                Resource resource = resourcePackage.get(id);
                 if (resource == null) continue;
-                var bytes = resource.loadOrGet();
+                byte[] bytes = resource.loadOrGet();
                 if (bytes == null) continue;
 
                 data.add(resource.getData());

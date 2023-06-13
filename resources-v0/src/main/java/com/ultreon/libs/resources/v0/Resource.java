@@ -1,5 +1,6 @@
 package com.ultreon.libs.resources.v0;
 
+import com.ultreon.libs.commons.v0.util.IOUtils;
 import com.ultreon.libs.functions.v0.misc.ThrowingSupplier;
 
 import javax.imageio.ImageIO;
@@ -20,7 +21,7 @@ public class Resource {
 
     public void load() {
         try (InputStream inputStream = this.opener.get()) {
-            this.data = inputStream.readAllBytes();
+            this.data = IOUtils.readAllBytes(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

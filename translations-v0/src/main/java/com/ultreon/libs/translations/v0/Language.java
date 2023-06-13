@@ -25,14 +25,15 @@ public class Language {
         for (int i = 0, splitLength = split.length; i < splitLength - 1; i++) {
             String s = split[i];
             JsonElement element = object.get(s);
-            if (element instanceof JsonObject obj) {
-                object = obj;
+            if (element instanceof JsonObject) {
+                object = (JsonObject) element;
             } else {
                 return null;
             }
         }
         JsonElement element = object.get(split[split.length - 1]);
-        if (element instanceof JsonPrimitive primitive) {
+        if (element instanceof JsonPrimitive) {
+            JsonPrimitive primitive = (JsonPrimitive) element;
             String s = primitive.getAsString();
             return s == null ? "null" : String.format(s, args);
         }

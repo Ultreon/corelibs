@@ -15,7 +15,6 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
 
     private static final int REMOVED_MASK = 0x80000000;
 
-    @Serial
     private static final long serialVersionUID = 964071416243835645L;
 
     private Entry<K, V> sentinel;
@@ -195,7 +194,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     public @NotNull Set<K> keySet() {
-        return new AbstractSet<>() {
+        return new AbstractSet<K>() {
             public @NotNull Iterator<K> iterator() {
                 return new OrderedIterator<>(KEY);
             }
@@ -224,7 +223,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
         };
     }
     public @NotNull Collection<V> values() {
-        return new AbstractCollection<>() {
+        return new AbstractCollection<V>() {
             public @NotNull Iterator<V> iterator() {
                 return new OrderedIterator<>(VALUE);
             }
@@ -267,7 +266,7 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
     }
 
     public @NotNull Set<Map.Entry<K, V>> entrySet() {
-        return new AbstractSet<>() {
+        return new AbstractSet<Map.Entry<K, V>>() {
             private Entry<K, V> findEntry(Map.Entry<K, V> o) {
                 if (o == null) {
                     return null;
@@ -481,12 +480,16 @@ public class OrderedHashMap<K, V> implements Map<K, V>, Cloneable, Externalizabl
             this.returnType = this.returnType & ~REMOVED_MASK;
             this.pos = this.pos.next;
 
-            return switch (this.returnType) {
-                case KEY -> (T) this.pos.getKey();
-                case VALUE -> (T) this.pos.getValue();
-                case ENTRY -> (T) this.pos;
-                default -> throw new Error("bad iterator type: " + this.returnType);
-            };
+            switch (this.returnType) {
+                case KEY:
+                    return (T) this.pos.getKey();
+                case VALUE:
+                    return (T) this.pos.getValue();
+                case ENTRY:
+                    return (T) this.pos;
+                default:
+                    throw new Error("bad iterator type: " + this.returnType);
+            }
         }
 
         public void remove() {

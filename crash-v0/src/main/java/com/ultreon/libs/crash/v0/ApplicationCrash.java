@@ -3,6 +3,7 @@ package com.ultreon.libs.crash.v0;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public final class ApplicationCrash {
 
     public void printCrash() {
         String crashString = this.crashLog.toString();
-        List<String> strings = crashString.lines().collect(Collectors.toList());
+        String[] strings = crashString.split("(\r\n|\r|\n)");
         for (String string : strings) {
             System.err.println(string);
         }

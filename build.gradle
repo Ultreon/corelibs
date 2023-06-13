@@ -37,6 +37,11 @@ subprojects {
         withSourcesJar()
     }
 
+    compileJava {
+        sourceCompatibility "1.8"
+        targetCompatibility "1.8"
+    }
+
     jar.archiveBaseName = "corelibs-$project.name"
     sourcesJar.archiveBaseName = "corelibs-$project.name"
 

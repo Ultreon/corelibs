@@ -4,7 +4,54 @@ import com.ultreon.libs.collections.v0.iterator.DoubleIterable;
 import com.ultreon.libs.collections.v0.iterator.DoubleIterator;
 import org.jetbrains.annotations.NotNull;
 
-public record Range(double start, double end, double step) {
+import java.util.Objects;
+
+public final class Range {
+    private final double start;
+    private final double end;
+    private final double step;
+
+    Range(double start, double end, double step) {
+        this.start = start;
+        this.end = end;
+        this.step = step;
+    }
+
+    public double start() {
+        return this.start;
+    }
+
+    public double end() {
+        return this.end;
+    }
+
+    public double step() {
+        return this.step;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        Range that = (Range) obj;
+        return Double.doubleToLongBits(this.start) == Double.doubleToLongBits(that.start) &&
+                Double.doubleToLongBits(this.end) == Double.doubleToLongBits(that.end) &&
+                Double.doubleToLongBits(this.step) == Double.doubleToLongBits(that.step);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.start, this.end, this.step);
+    }
+
+    @Override
+    public String toString() {
+        return "Range[" +
+                "start=" + this.start + ", " +
+                "end=" + this.end + ", " +
+                "step=" + this.step + ']';
+    }
+
     public Range(double start, double end) {
         this(start, end, 1);
     }

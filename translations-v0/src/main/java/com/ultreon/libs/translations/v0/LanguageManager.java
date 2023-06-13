@@ -91,7 +91,8 @@ public class LanguageManager {
         for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
             JsonElement value = entry.getValue();
             String key = entry.getKey();
-            if (value instanceof JsonObject obj) {
+            if (value instanceof JsonObject) {
+                JsonObject obj = (JsonObject) value;
                 if (json.has(key)) {
                     if (json.get(key) instanceof JsonObject) {
                         this.recurse(json.getAsJsonObject(key), obj);
