@@ -20,7 +20,7 @@ public class Language {
         String[] split = path.split("/");
 
         String s = this.languageMap.get(path);
-        return s == null ? path : String.format(s, args);
+        return s == null ? null : String.format(s, args);
     }
 
     public Locale getLocale() {
