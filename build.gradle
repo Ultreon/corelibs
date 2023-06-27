@@ -65,4 +65,12 @@ subprojects {
             }
         }
     }
+
+    tasks.withType(GenerateModuleMetadata) {
+        enabled = false
+    }
+}
+
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
 }
