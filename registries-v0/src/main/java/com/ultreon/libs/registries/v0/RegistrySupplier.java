@@ -5,12 +5,12 @@ import com.ultreon.libs.commons.v0.Identifier;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unchecked"})
-public class RegistrySupplier<B> {
-    private final Registry<? super B> registry;
-    private final Supplier<B> supplier;
+public class RegistrySupplier<T> implements Supplier<T> {
+    private final Registry<? super T> registry;
+    private final Supplier<T> supplier;
     private final Identifier identifier;
 
-    public <T extends B> RegistrySupplier(Registry<? super B> registry, Supplier<B> supplier, Identifier identifier) {
+    public RegistrySupplier(Registry<? super T> registry, Supplier<T> supplier, Identifier identifier) {
         this.registry = registry;
         this.supplier = supplier;
         this.identifier = identifier;
@@ -21,8 +21,8 @@ public class RegistrySupplier<B> {
     }
 
     @SuppressWarnings("unchecked")
-    public B get() {
-        return (B) this.registry.getValue(this.identifier);
+    public T get() {
+        return (T) this.registry.getValue(this.identifier);
     }
 
     public Identifier id() {
