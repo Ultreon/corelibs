@@ -162,20 +162,20 @@ public class Vec2f implements Externalizable, Cloneable {
     }
 
     public Vec2f pow(Vec2f vec) {
-        this.x = Math.pow(this.x, vec.x);
-        this.y = Math.pow(this.y, vec.y);
+        this.x = (float) Math.pow(this.x, vec.x);
+        this.y = (float) Math.pow(this.y, vec.y);
         return this;
     }
 
     public Vec2f pow(float x, float y) {
-        this.x = Math.pow(this.x, x);
-        this.y = Math.pow(this.y, y);
+        this.x = (float) Math.pow(this.x, x);
+        this.y = (float) Math.pow(this.y, y);
         return this;
     }
 
     public Vec2f pow(float v) {
-        this.x = Math.pow(this.x, v);
-        this.y = Math.pow(this.y, v);
+        this.x = (float) Math.pow(this.x, v);
+        this.y = (float) Math.pow(this.y, v);
         return this;
     }
 
