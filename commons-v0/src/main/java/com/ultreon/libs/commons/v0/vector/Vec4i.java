@@ -77,6 +77,198 @@ public class Vec4i implements Externalizable, Cloneable {
         return new Vec4d(Math.pow(a.x, b.x), Math.pow(a.y, b.y), Math.pow(a.z, b.z), Math.pow(a.w, b.w));
     }
 
+    public int dot(Vec4i vec) {
+        return this.x * vec.x + this.y * vec.y + this.z * vec.z + this.w * vec.w;
+    }
+
+    public int dot(int x, int y, int z, int w) {
+        return this.x * x + this.y * y + this.z * z + this.w * w;
+    }
+
+    public int dot(int v) {
+        return this.x * v + this.y * v + this.z * v + this.w * v;
+    }
+
+    public Vec4i add(Vec4i vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
+        this.w += vec.w;
+        return this;
+    }
+
+    public Vec4i add(int x, int y, int z, int w) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        this.w += w;
+        return this;
+    }
+
+    public Vec4i add(int v) {
+        this.x += v;
+        this.y += v;
+        this.z += v;
+        this.w += v;
+        return this;
+    }
+
+    public Vec4i sub(Vec4i vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+        this.w -= vec.w;
+        return this;
+    }
+
+    public Vec4i sub(int x, int y, int z, int w) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        this.w -= w;
+        return this;
+    }
+
+    public Vec4i sub(int v) {
+        this.x -= v;
+        this.y -= v;
+        this.z -= v;
+        this.w -= v;
+        return this;
+    }
+
+    public Vec4i mul(Vec4i vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        this.z *= vec.z;
+        this.w *= vec.w;
+        return this;
+    }
+
+    public Vec4i mul(int x, int y, int z, int w) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        this.w *= w;
+        return this;
+    }
+
+    public Vec4i mul(int v) {
+        this.x *= v;
+        this.y *= v;
+        this.z *= v;
+        this.w *= v;
+        return this;
+    }
+
+    public Vec4i div(Vec4i vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        this.z /= vec.z;
+        this.w /= vec.w;
+        return this;
+    }
+
+    public Vec4i div(int x, int y, int z, int w) {
+        this.x /= x;
+        this.y /= y;
+        this.z /= z;
+        this.w /= w;
+        return this;
+    }
+
+    public Vec4i div(int v) {
+        this.x /= v;
+        this.y /= v;
+        this.z /= v;
+        this.w /= v;
+        return this;
+    }
+
+    public Vec4i mod(Vec4i vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        this.z %= vec.z;
+        this.w %= vec.z;
+        return this;
+    }
+
+    public Vec4i mod(int x, int y, int z, int w) {
+        this.x %= x;
+        this.y %= y;
+        this.z %= z;
+        this.w %= w;
+        return this;
+    }
+
+    public Vec4i mod(int v) {
+        this.x %= v;
+        this.y %= v;
+        this.z %= v;
+        this.w %= v;
+        return this;
+    }
+
+    public Vec4i pow(Vec4i vec) {
+        this.x = (int) Math.pow(this.x, vec.x);
+        this.y = (int) Math.pow(this.y, vec.y);
+        this.z = (int) Math.pow(this.z, vec.z);
+        this.w = (int) Math.pow(this.w, vec.w);
+        return this;
+    }
+
+    public Vec4i pow(int x, int y, int z, int w) {
+        this.x = (int) Math.pow(this.x, x);
+        this.y = (int) Math.pow(this.y, y);
+        this.z = (int) Math.pow(this.z, z);
+        this.w = (int) Math.pow(this.w, w);
+        return this;
+    }
+
+    public Vec4i pow(int v) {
+        this.x = (int) Math.pow(this.x, v);
+        this.y = (int) Math.pow(this.y, v);
+        this.z = (int) Math.pow(this.z, v);
+        this.w = (int) Math.pow(this.w, v);
+        return this;
+    }
+
+    public Vec4i neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        this.w = -this.w;
+        return this;
+    }
+
+    public Vec4i inc() {
+        this.x++;
+        this.y++;
+        this.z++;
+        this.w++;
+        return this;
+    }
+
+    public Vec4i dec() {
+        this.x--;
+        this.y--;
+        this.z--;
+        this.w--;
+        return this;
+    }
+
+    public Vec4i abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        this.z = Math.abs(this.z);
+        this.w = Math.abs(this.w);
+        return this;
+    }
+
+    public Vec4i cpy() {
+        return new Vec4i(this.x, this.y, this.z, this.w);
+    }
+
     public Vec4d d() {
         return new Vec4d(this.x, this.y, this.z, this.w);
     }

@@ -77,6 +77,214 @@ public class Vec4d implements Externalizable, Cloneable {
         return new Vec4d(Math.pow(a.x, b.x), Math.pow(a.y, b.y), Math.pow(a.z, b.z), Math.pow(a.w, b.w));
     }
 
+    public double dot(Vec4d vec) {
+        return this.x * vec.x + this.y * vec.y + this.z * vec.z + this.w * vec.w;
+    }
+
+    public double dot(double x, double y, double z, double w) {
+        return this.x * x + this.y * y + this.z * z + this.w * w;
+    }
+
+    public double dot(double v) {
+        return this.x * v + this.y * v + this.z * v + this.w * v;
+    }
+
+    public Vec4d add(Vec4d vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
+        this.w += vec.w;
+        return this;
+    }
+
+    public Vec4d add(double x, double y, double z, double w) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        this.w += w;
+        return this;
+    }
+
+    public Vec4d add(double v) {
+        this.x += v;
+        this.y += v;
+        this.z += v;
+        this.w += v;
+        return this;
+    }
+
+    public Vec4d sub(Vec4d vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+        this.w -= vec.w;
+        return this;
+    }
+
+    public Vec4d sub(double x, double y, double z, double w) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        this.w -= w;
+        return this;
+    }
+
+    public Vec4d sub(double v) {
+        this.x -= v;
+        this.y -= v;
+        this.z -= v;
+        this.w -= v;
+        return this;
+    }
+
+    public Vec4d mul(Vec4d vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        this.z *= vec.z;
+        this.w *= vec.w;
+        return this;
+    }
+
+    public Vec4d mul(double x, double y, double z, double w) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        this.w *= w;
+        return this;
+    }
+
+    public Vec4d mul(double v) {
+        this.x *= v;
+        this.y *= v;
+        this.z *= v;
+        this.w *= v;
+        return this;
+    }
+
+    public Vec4d div(Vec4d vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        this.z /= vec.z;
+        this.w /= vec.w;
+        return this;
+    }
+
+    public Vec4d div(double x, double y, double z, double w) {
+        this.x /= x;
+        this.y /= y;
+        this.z /= z;
+        this.w /= w;
+        return this;
+    }
+
+    public Vec4d div(double v) {
+        this.x /= v;
+        this.y /= v;
+        this.z /= v;
+        this.w /= v;
+        return this;
+    }
+
+    public Vec4d mod(Vec4d vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        this.z %= vec.z;
+        this.w %= vec.z;
+        return this;
+    }
+
+    public Vec4d mod(double x, double y, double z, double w) {
+        this.x %= x;
+        this.y %= y;
+        this.z %= z;
+        this.w %= w;
+        return this;
+    }
+
+    public Vec4d mod(double v) {
+        this.x %= v;
+        this.y %= v;
+        this.z %= v;
+        this.w %= v;
+        return this;
+    }
+
+    public Vec4d pow(Vec4d vec) {
+        this.x = Math.pow(this.x, vec.x);
+        this.y = Math.pow(this.y, vec.y);
+        this.z = Math.pow(this.z, vec.z);
+        this.w = Math.pow(this.w, vec.w);
+        return this;
+    }
+
+    public Vec4d pow(double x, double y, double z, double w) {
+        this.x = Math.pow(this.x, x);
+        this.y = Math.pow(this.y, y);
+        this.z = Math.pow(this.z, z);
+        this.w = Math.pow(this.w, w);
+        return this;
+    }
+
+    public Vec4d pow(double v) {
+        this.x = Math.pow(this.x, v);
+        this.y = Math.pow(this.y, v);
+        this.z = Math.pow(this.z, v);
+        this.w = Math.pow(this.w, v);
+        return this;
+    }
+
+    public Vec4d neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        this.w = -this.w;
+        return this;
+    }
+
+    public Vec4d inc() {
+        this.x++;
+        this.y++;
+        this.z++;
+        this.w++;
+        return this;
+    }
+
+    public Vec4d dec() {
+        this.x--;
+        this.y--;
+        this.z--;
+        this.w--;
+        return this;
+    }
+
+    public Vec4d abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        this.z = Math.abs(this.z);
+        this.w = Math.abs(this.w);
+        return this;
+    }
+
+    public Vec4d floor() {
+        this.x = Math.floor(this.x);
+        this.y = Math.floor(this.y);
+        this.z = Math.floor(this.z);
+        this.w = Math.floor(this.w);
+        return this;
+    }
+
+    public Vec4d ceil() {
+        this.x = Math.ceil(this.x);
+        this.y = Math.ceil(this.y);
+        this.z = Math.ceil(this.z);
+        this.w = Math.ceil(this.w);
+        return this;
+    }
+
+    public Vec4d cpy() {
+        return new Vec4d(this.x, this.y, this.z, this.w);
+    }
+
     public Vec4d d() {
         return new Vec4d(this.x, this.y, this.z, this.w);
     }

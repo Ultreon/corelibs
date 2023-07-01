@@ -68,6 +68,190 @@ public class Vec3f implements Externalizable, Cloneable {
         return new Vec3d(Math.pow(a.x, b.x), Math.pow(a.y, b.y), Math.pow(a.z, b.z));
     }
 
+    public float dot(Vec3f vec) {
+        return this.x * vec.x + this.y * vec.y + this.z * vec.z;
+    }
+
+    public float dot(float x, float y, float z) {
+        return this.x * x + this.y * y + this.z * z;
+    }
+
+    public float dot(float v) {
+        return this.x * v + this.y * v + this.z * v;
+    }
+
+    public Vec3f add(Vec3f vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
+        return this;
+    }
+
+    public Vec3f add(float x, float y, float z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
+    public Vec3f add(float v) {
+        this.x += v;
+        this.y += v;
+        this.z += v;
+        return this;
+    }
+
+    public Vec3f sub(Vec3f vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+        return this;
+    }
+
+    public Vec3f sub(float x, float y, float z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        return this;
+    }
+
+    public Vec3f sub(float v) {
+        this.x -= v;
+        this.y -= v;
+        this.z -= v;
+        return this;
+    }
+
+    public Vec3f mul(Vec3f vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        this.z *= vec.z;
+        return this;
+    }
+
+    public Vec3f mul(float x, float y, float z) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        return this;
+    }
+
+    public Vec3f mul(float v) {
+        this.x *= v;
+        this.y *= v;
+        this.z *= v;
+        return this;
+    }
+
+    public Vec3f div(Vec3f vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        this.z /= vec.z;
+        return this;
+    }
+
+    public Vec3f div(float x, float y, float z) {
+        this.x /= x;
+        this.y /= y;
+        this.z /= z;
+        return this;
+    }
+
+    public Vec3f div(float v) {
+        this.x /= v;
+        this.y /= v;
+        this.z /= v;
+        return this;
+    }
+
+    public Vec3f mod(Vec3f vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        this.z %= vec.z;
+        return this;
+    }
+
+    public Vec3f mod(float x, float y, float z) {
+        this.x %= x;
+        this.y %= y;
+        this.z %= z;
+        return this;
+    }
+
+    public Vec3f mod(float v) {
+        this.x %= v;
+        this.y %= v;
+        this.z %= v;
+        return this;
+    }
+
+    public Vec3f pow(Vec3f vec) {
+        this.x = (float) Math.pow(this.x, vec.x);
+        this.y = (float) Math.pow(this.y, vec.y);
+        this.z = (float) Math.pow(this.z, vec.z);
+        return this;
+    }
+
+    public Vec3f pow(float x, float y, float z) {
+        this.x = (float) Math.pow(this.x, x);
+        this.y = (float) Math.pow(this.y, y);
+        this.z = (float) Math.pow(this.z, z);
+        return this;
+    }
+
+    public Vec3f pow(float v) {
+        this.x = (float) Math.pow(this.x, v);
+        this.y = (float) Math.pow(this.y, v);
+        this.z = (float) Math.pow(this.z, v);
+        return this;
+    }
+
+    public Vec3f neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        return this;
+    }
+
+    public Vec3f inc() {
+        this.x++;
+        this.y++;
+        this.z++;
+        return this;
+    }
+
+    public Vec3f dec() {
+        this.x--;
+        this.y--;
+        this.z--;
+        return this;
+    }
+
+    public Vec3f abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        this.z = Math.abs(this.z);
+        return this;
+    }
+
+    public Vec3f floor() {
+        this.x = (float) Math.floor(this.x);
+        this.y = (float) Math.floor(this.y);
+        this.z = (float) Math.floor(this.z);
+        return this;
+    }
+
+    public Vec3f ceil() {
+        this.x = (float) Math.ceil(this.x);
+        this.y = (float) Math.ceil(this.y);
+        this.z = (float) Math.ceil(this.z);
+        return this;
+    }
+
+    public Vec3f cpy() {
+        return new Vec3f(this.x, this.y, this.z);
+    }
+
     public Vec3d d() {
         return new Vec3d(this.x, this.y, this.z);
     }

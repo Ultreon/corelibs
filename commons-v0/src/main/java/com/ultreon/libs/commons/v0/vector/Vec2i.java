@@ -40,56 +40,6 @@ public class Vec2i implements Externalizable, Cloneable {
         this.y = y;
     }
 
-    public void mul(int i) {
-        this.x *= i;
-        this.y *= i;
-    }
-
-    public void div(int i) {
-        this.x /= i;
-        this.y /= i;
-    }
-
-    public void add(int i) {
-        this.x += i;
-        this.y += i;
-    }
-
-    public void sub(int i) {
-        this.x -= i;
-        this.y -= i;
-    }
-
-    public void pow(int i) {
-        this.x = (int) Math.pow(this.x, i);
-        this.y = (int) Math.pow(this.y, i);
-    }
-
-    public void mul(int x, int y) {
-        this.x *= x;
-        this.y *= y;
-    }
-
-    public void div(int x, int y) {
-        this.x /= x;
-        this.y /= y;
-    }
-
-    public void add(int x, int y) {
-        this.x += x;
-        this.y += y;
-    }
-
-    public void sub(int x, int y) {
-        this.x -= x;
-        this.y -= y;
-    }
-
-    public void pow(int x, int y) {
-        this.x = (int) Math.pow(this.x, x);
-        this.y = (int) Math.pow(this.y, y);
-    }
-
     public static Vec2i mul(Vec2i a, Vec2i b) {
         return new Vec2i(a.x * b.x, a.y * b.y);
     }
@@ -112,6 +62,154 @@ public class Vec2i implements Externalizable, Cloneable {
 
     public static Vec2d pow(Vec2i a, Vec2i b) {
         return new Vec2d(Math.pow(a.x, b.x), Math.pow(a.y, b.y));
+    }
+
+    public int dot(Vec2i vec) {
+        return this.x * vec.x + this.y * vec.y;
+    }
+
+    public int dot(int x, int y) {
+        return this.x * x + this.y * y;
+    }
+
+    public int dot(int v) {
+        return this.x * v + this.y * v;
+    }
+
+    public Vec2i add(Vec2i vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        return this;
+    }
+
+    public Vec2i add(int x, int y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
+    public Vec2i add(int v) {
+        this.x += v;
+        this.y += v;
+        return this;
+    }
+
+    public Vec2i sub(Vec2i vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        return this;
+    }
+
+    public Vec2i sub(int x, int y) {
+        this.x -= x;
+        this.y -= y;
+        return this;
+    }
+
+    public Vec2i sub(int v) {
+        this.x -= v;
+        this.y -= v;
+        return this;
+    }
+
+    public Vec2i mul(Vec2i vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        return this;
+    }
+
+    public Vec2i mul(int x, int y) {
+        this.x *= x;
+        this.y *= y;
+        return this;
+    }
+
+    public Vec2i mul(int v) {
+        this.x *= v;
+        this.y *= v;
+        return this;
+    }
+
+    public Vec2i div(Vec2i vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        return this;
+    }
+
+    public Vec2i div(int x, int y) {
+        this.x /= x;
+        this.y /= y;
+        return this;
+    }
+
+    public Vec2i div(int v) {
+        this.x /= v;
+        this.y /= v;
+        return this;
+    }
+
+    public Vec2i mod(Vec2i vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        return this;
+    }
+
+    public Vec2i mod(int x, int y) {
+        this.x %= x;
+        this.y %= y;
+        return this;
+    }
+
+    public Vec2i mod(int v) {
+        this.x %= v;
+        this.y %= v;
+        return this;
+    }
+
+    public Vec2i pow(Vec2i vec) {
+        this.x = (int) Math.pow(this.x, vec.x);
+        this.y = (int) Math.pow(this.y, vec.y);
+        return this;
+    }
+
+    public Vec2i pow(int x, int y) {
+        this.x = (int) Math.pow(this.x, x);
+        this.y = (int) Math.pow(this.y, y);
+        return this;
+    }
+
+    public Vec2i pow(int v) {
+        this.x = (int) Math.pow(this.x, v);
+        this.y = (int) Math.pow(this.y, v);
+        return this;
+    }
+
+    public Vec2i neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        return this;
+    }
+
+    public Vec2i inc() {
+        this.x++;
+        this.y++;
+        return this;
+    }
+
+    public Vec2i dec() {
+        this.x--;
+        this.y--;
+        return this;
+    }
+
+    public Vec2i abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        return this;
+    }
+
+    public Vec2i cpy() {
+        return new Vec2i(this.x, this.y);
     }
 
     public Vec2d d() {

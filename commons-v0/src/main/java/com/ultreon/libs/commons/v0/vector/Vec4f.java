@@ -76,6 +76,214 @@ public class Vec4f implements Externalizable, Cloneable {
         return new Vec4d(Math.pow(a.x, b.x), Math.pow(a.y, b.y), Math.pow(a.z, b.z), Math.pow(a.w, b.w));
     }
 
+    public float dot(Vec4f vec) {
+        return this.x * vec.x + this.y * vec.y + this.z * vec.z + this.w * vec.w;
+    }
+
+    public float dot(float x, float y, float z, float w) {
+        return this.x * x + this.y * y + this.z * z + this.w * w;
+    }
+
+    public float dot(float v) {
+        return this.x * v + this.y * v + this.z * v + this.w * v;
+    }
+
+    public Vec4f add(Vec4f vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
+        this.w += vec.w;
+        return this;
+    }
+
+    public Vec4f add(float x, float y, float z, float w) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        this.w += w;
+        return this;
+    }
+
+    public Vec4f add(float v) {
+        this.x += v;
+        this.y += v;
+        this.z += v;
+        this.w += v;
+        return this;
+    }
+
+    public Vec4f sub(Vec4f vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+        this.w -= vec.w;
+        return this;
+    }
+
+    public Vec4f sub(float x, float y, float z, float w) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        this.w -= w;
+        return this;
+    }
+
+    public Vec4f sub(float v) {
+        this.x -= v;
+        this.y -= v;
+        this.z -= v;
+        this.w -= v;
+        return this;
+    }
+
+    public Vec4f mul(Vec4f vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        this.z *= vec.z;
+        this.w *= vec.w;
+        return this;
+    }
+
+    public Vec4f mul(float x, float y, float z, float w) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        this.w *= w;
+        return this;
+    }
+
+    public Vec4f mul(float v) {
+        this.x *= v;
+        this.y *= v;
+        this.z *= v;
+        this.w *= v;
+        return this;
+    }
+
+    public Vec4f div(Vec4f vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        this.z /= vec.z;
+        this.w /= vec.w;
+        return this;
+    }
+
+    public Vec4f div(float x, float y, float z, float w) {
+        this.x /= x;
+        this.y /= y;
+        this.z /= z;
+        this.w /= w;
+        return this;
+    }
+
+    public Vec4f div(float v) {
+        this.x /= v;
+        this.y /= v;
+        this.z /= v;
+        this.w /= v;
+        return this;
+    }
+
+    public Vec4f mod(Vec4f vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        this.z %= vec.z;
+        this.w %= vec.z;
+        return this;
+    }
+
+    public Vec4f mod(float x, float y, float z, float w) {
+        this.x %= x;
+        this.y %= y;
+        this.z %= z;
+        this.w %= w;
+        return this;
+    }
+
+    public Vec4f mod(float v) {
+        this.x %= v;
+        this.y %= v;
+        this.z %= v;
+        this.w %= v;
+        return this;
+    }
+
+    public Vec4f pow(Vec4f vec) {
+        this.x = (float) Math.pow(this.x, vec.x);
+        this.y = (float) Math.pow(this.y, vec.y);
+        this.z = (float) Math.pow(this.z, vec.z);
+        this.w = (float) Math.pow(this.w, vec.w);
+        return this;
+    }
+
+    public Vec4f pow(float x, float y, float z, float w) {
+        this.x = (float) Math.pow(this.x, x);
+        this.y = (float) Math.pow(this.y, y);
+        this.z = (float) Math.pow(this.z, z);
+        this.w = (float) Math.pow(this.w, w);
+        return this;
+    }
+
+    public Vec4f pow(float v) {
+        this.x = (float) Math.pow(this.x, v);
+        this.y = (float) Math.pow(this.y, v);
+        this.z = (float) Math.pow(this.z, v);
+        this.w = (float) Math.pow(this.w, v);
+        return this;
+    }
+
+    public Vec4f neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        this.w = -this.w;
+        return this;
+    }
+
+    public Vec4f inc() {
+        this.x++;
+        this.y++;
+        this.z++;
+        this.w++;
+        return this;
+    }
+
+    public Vec4f dec() {
+        this.x--;
+        this.y--;
+        this.z--;
+        this.w--;
+        return this;
+    }
+
+    public Vec4f abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        this.z = Math.abs(this.z);
+        this.w = Math.abs(this.w);
+        return this;
+    }
+
+    public Vec4f floor() {
+        this.x = (float) Math.floor(this.x);
+        this.y = (float) Math.floor(this.y);
+        this.z = (float) Math.floor(this.z);
+        this.w = (float) Math.floor(this.w);
+        return this;
+    }
+
+    public Vec4f ceil() {
+        this.x = (float) Math.ceil(this.x);
+        this.y = (float) Math.ceil(this.y);
+        this.z = (float) Math.ceil(this.z);
+        this.w = (float) Math.ceil(this.w);
+        return this;
+    }
+
+    public Vec4f cpy() {
+        return new Vec4f(this.x, this.y, this.z, this.w);
+    }
+
     public Vec4d d() {
         return new Vec4d(this.x, this.y, this.z, this.w);
     }

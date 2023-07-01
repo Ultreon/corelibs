@@ -68,6 +68,176 @@ public class Vec3i implements Externalizable, Cloneable {
         return new Vec3d(Math.pow(a.x, b.x), Math.pow(a.y, b.y), Math.pow(a.z, b.z));
     }
 
+    public int dot(Vec3i vec) {
+        return this.x * vec.x + this.y * vec.y + this.z * vec.z;
+    }
+
+    public int dot(int x, int y, int z) {
+        return this.x * x + this.y * y + this.z * z;
+    }
+
+    public int dot(int v) {
+        return this.x * v + this.y * v + this.z * v;
+    }
+
+    public Vec3i add(Vec3i vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
+        return this;
+    }
+
+    public Vec3i add(int x, int y, int z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
+    public Vec3i add(int v) {
+        this.x += v;
+        this.y += v;
+        this.z += v;
+        return this;
+    }
+
+    public Vec3i sub(Vec3i vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+        return this;
+    }
+
+    public Vec3i sub(int x, int y, int z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        return this;
+    }
+
+    public Vec3i sub(int v) {
+        this.x -= v;
+        this.y -= v;
+        this.z -= v;
+        return this;
+    }
+
+    public Vec3i mul(Vec3i vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        this.z *= vec.z;
+        return this;
+    }
+
+    public Vec3i mul(int x, int y, int z) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        return this;
+    }
+
+    public Vec3i mul(int v) {
+        this.x *= v;
+        this.y *= v;
+        this.z *= v;
+        return this;
+    }
+
+    public Vec3i div(Vec3i vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        this.z /= vec.z;
+        return this;
+    }
+
+    public Vec3i div(int x, int y, int z) {
+        this.x /= x;
+        this.y /= y;
+        this.z /= z;
+        return this;
+    }
+
+    public Vec3i div(int v) {
+        this.x /= v;
+        this.y /= v;
+        this.z /= v;
+        return this;
+    }
+
+    public Vec3i mod(Vec3i vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        this.z %= vec.z;
+        return this;
+    }
+
+    public Vec3i mod(int x, int y, int z) {
+        this.x %= x;
+        this.y %= y;
+        this.z %= z;
+        return this;
+    }
+
+    public Vec3i mod(int v) {
+        this.x %= v;
+        this.y %= v;
+        this.z %= v;
+        return this;
+    }
+
+    public Vec3i pow(Vec3i vec) {
+        this.x = (int) Math.pow(this.x, vec.x);
+        this.y = (int) Math.pow(this.y, vec.y);
+        this.z = (int) Math.pow(this.z, vec.z);
+        return this;
+    }
+
+    public Vec3i pow(int x, int y, int z) {
+        this.x = (int) Math.pow(this.x, x);
+        this.y = (int) Math.pow(this.y, y);
+        this.z = (int) Math.pow(this.z, z);
+        return this;
+    }
+
+    public Vec3i pow(int v) {
+        this.x = (int) Math.pow(this.x, v);
+        this.y = (int) Math.pow(this.y, v);
+        this.z = (int) Math.pow(this.z, v);
+        return this;
+    }
+
+    public Vec3i neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        this.z = -this.z;
+        return this;
+    }
+
+    public Vec3i inc() {
+        this.x++;
+        this.y++;
+        this.z++;
+        return this;
+    }
+
+    public Vec3i dec() {
+        this.x--;
+        this.y--;
+        this.z--;
+        return this;
+    }
+
+    public Vec3i abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        this.z = Math.abs(this.z);
+        return this;
+    }
+
+    public Vec3i cpy() {
+        return new Vec3i(this.x, this.y, this.z);
+    }
+
     public Vec3d d() {
         return new Vec3d(this.x, this.y, this.z);
     }

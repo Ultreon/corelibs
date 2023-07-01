@@ -35,56 +35,6 @@ public class Vec2f implements Externalizable, Cloneable {
         this.y = y;
     }
 
-    public void mul(float i) {
-        this.x *= i;
-        this.y *= i;
-    }
-
-    public void div(float i) {
-        this.x /= i;
-        this.y /= i;
-    }
-
-    public void add(float i) {
-        this.x += i;
-        this.y += i;
-    }
-
-    public void sub(float i) {
-        this.x -= i;
-        this.y -= i;
-    }
-
-    public void pow(float i) {
-        this.x = (float) Math.pow(this.x, i);
-        this.y = (float) Math.pow(this.y, i);
-    }
-
-    public void mul(float x, float y) {
-        this.x *= x;
-        this.y *= y;
-    }
-
-    public void div(float x, float y) {
-        this.x /= x;
-        this.y /= y;
-    }
-
-    public void add(float x, float y) {
-        this.x += x;
-        this.y += y;
-    }
-
-    public void sub(float x, float y) {
-        this.x -= x;
-        this.y -= y;
-    }
-
-    public void pow(float x, float y) {
-        this.x = (float) Math.pow(this.x, x);
-        this.y = (float) Math.pow(this.y, y);
-    }
-
     public static Vec2f mul(Vec2f a, Vec2f b) {
         return new Vec2f(a.x * b.x, a.y * b.y);
     }
@@ -107,6 +57,166 @@ public class Vec2f implements Externalizable, Cloneable {
 
     public static Vec2d pow(Vec2f a, Vec2f b) {
         return new Vec2d(Math.pow(a.x, b.x), Math.pow(a.y, b.y));
+    }
+
+    public float dot(Vec2f vec) {
+        return this.x * vec.x + this.y * vec.y;
+    }
+
+    public float dot(float x, float y) {
+        return this.x * x + this.y * y;
+    }
+
+    public float dot(float v) {
+        return this.x * v + this.y * v;
+    }
+
+    public Vec2f add(Vec2f vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+        return this;
+    }
+
+    public Vec2f add(float x, float y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
+    public Vec2f add(float v) {
+        this.x += v;
+        this.y += v;
+        return this;
+    }
+
+    public Vec2f sub(Vec2f vec) {
+        this.x -= vec.x;
+        this.y -= vec.y;
+        return this;
+    }
+
+    public Vec2f sub(float x, float y) {
+        this.x -= x;
+        this.y -= y;
+        return this;
+    }
+
+    public Vec2f sub(float v) {
+        this.x -= v;
+        this.y -= v;
+        return this;
+    }
+
+    public Vec2f mul(Vec2f vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        return this;
+    }
+
+    public Vec2f mul(float x, float y) {
+        this.x *= x;
+        this.y *= y;
+        return this;
+    }
+
+    public Vec2f mul(float v) {
+        this.x *= v;
+        this.y *= v;
+        return this;
+    }
+
+    public Vec2f div(Vec2f vec) {
+        this.x /= vec.x;
+        this.y /= vec.y;
+        return this;
+    }
+
+    public Vec2f div(float x, float y) {
+        this.x /= x;
+        this.y /= y;
+        return this;
+    }
+
+    public Vec2f div(float v) {
+        this.x /= v;
+        this.y /= v;
+        return this;
+    }
+
+    public Vec2f mod(Vec2f vec) {
+        this.x %= vec.x;
+        this.y %= vec.y;
+        return this;
+    }
+
+    public Vec2f mod(float x, float y) {
+        this.x %= x;
+        this.y %= y;
+        return this;
+    }
+
+    public Vec2f mod(float v) {
+        this.x %= v;
+        this.y %= v;
+        return this;
+    }
+
+    public Vec2f pow(Vec2f vec) {
+        this.x = Math.pow(this.x, vec.x);
+        this.y = Math.pow(this.y, vec.y);
+        return this;
+    }
+
+    public Vec2f pow(float x, float y) {
+        this.x = Math.pow(this.x, x);
+        this.y = Math.pow(this.y, y);
+        return this;
+    }
+
+    public Vec2f pow(float v) {
+        this.x = Math.pow(this.x, v);
+        this.y = Math.pow(this.y, v);
+        return this;
+    }
+
+    public Vec2f neg() {
+        this.x = -this.x;
+        this.y = -this.y;
+        return this;
+    }
+
+    public Vec2f inc() {
+        this.x++;
+        this.y++;
+        return this;
+    }
+
+    public Vec2f dec() {
+        this.x--;
+        this.y--;
+        return this;
+    }
+
+    public Vec2f abs() {
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
+        return this;
+    }
+
+    public Vec2f floor() {
+        this.x = (float) Math.floor(this.x);
+        this.y = (float) Math.floor(this.y);
+        return this;
+    }
+
+    public Vec2f ceil() {
+        this.x = (float) Math.ceil(this.x);
+        this.y = (float) Math.ceil(this.y);
+        return this;
+    }
+
+    public Vec2f cpy() {
+        return new Vec2f(this.x, this.y);
     }
 
     public Vec2d d() {
