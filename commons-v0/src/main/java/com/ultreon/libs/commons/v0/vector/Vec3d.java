@@ -79,7 +79,28 @@ public class Vec3d implements Externalizable, Cloneable {
     public double dot(double v) {
         return this.x * v + this.y * v + this.z * v;
     }
-    
+
+    public Vec3d set(Vec3d vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
+        return this;
+    }
+
+    public Vec3d set(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    public Vec3d set(double v) {
+        this.x = v;
+        this.y = v;
+        this.z = v;
+        return this;
+    }
+
     public Vec3d add(Vec3d vec) {
         this.x += vec.x;
         this.y += vec.y;

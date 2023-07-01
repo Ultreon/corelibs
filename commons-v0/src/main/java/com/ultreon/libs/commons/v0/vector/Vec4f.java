@@ -88,6 +88,30 @@ public class Vec4f implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v + this.w * v;
     }
 
+    public Vec4f set(Vec4f vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
+        this.w = vec.w;
+        return this;
+    }
+
+    public Vec4f set(float x, float y, float z, float w) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+        return this;
+    }
+
+    public Vec4f set(float v) {
+        this.x = v;
+        this.y = v;
+        this.z = v;
+        this.w = v;
+        return this;
+    }
+
     public Vec4f add(Vec4f vec) {
         this.x += vec.x;
         this.y += vec.y;

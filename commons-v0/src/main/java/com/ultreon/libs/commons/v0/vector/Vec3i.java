@@ -80,6 +80,27 @@ public class Vec3i implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v;
     }
 
+    public Vec3i set(Vec3i vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
+        return this;
+    }
+
+    public Vec3i set(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    public Vec3i set(int v) {
+        this.x = v;
+        this.y = v;
+        this.z = v;
+        return this;
+    }
+
     public Vec3i add(Vec3i vec) {
         this.x += vec.x;
         this.y += vec.y;

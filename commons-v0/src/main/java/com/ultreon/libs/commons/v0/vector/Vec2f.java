@@ -71,6 +71,24 @@ public class Vec2f implements Externalizable, Cloneable {
         return this.x * v + this.y * v;
     }
 
+    public Vec2f set(Vec2f vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        return this;
+    }
+
+    public Vec2f set(float x, float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public Vec2f set(float v) {
+        this.x = v;
+        this.y = v;
+        return this;
+    }
+
     public Vec2f add(Vec2f vec) {
         this.x += vec.x;
         this.y += vec.y;

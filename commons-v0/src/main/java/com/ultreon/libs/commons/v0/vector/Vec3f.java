@@ -80,6 +80,27 @@ public class Vec3f implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v;
     }
 
+    public Vec3f set(Vec3f vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
+        return this;
+    }
+
+    public Vec3f set(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    public Vec3f set(float v) {
+        this.x = v;
+        this.y = v;
+        this.z = v;
+        return this;
+    }
+
     public Vec3f add(Vec3f vec) {
         this.x += vec.x;
         this.y += vec.y;
