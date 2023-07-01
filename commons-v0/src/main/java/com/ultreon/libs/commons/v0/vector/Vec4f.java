@@ -88,6 +88,22 @@ public class Vec4f implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v + this.w * v;
     }
 
+    public double dst(Vec4f vec) {
+        float a = vec.x - this.x;
+        float b = vec.y - this.y;
+        float c = vec.z - this.z;
+        float d = vec.w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
+    public double dst(float x, float y, float z, float w) {
+        float a = x - this.x;
+        float b = y - this.y;
+        float c = z - this.z;
+        float d = w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
     public Vec4f set(Vec4f vec) {
         this.x = vec.x;
         this.y = vec.y;

@@ -71,6 +71,18 @@ public class Vec2d implements Externalizable, Cloneable {
         return this.x * v + this.y * v;
     }
 
+    public double dst(Vec2d vec) {
+        double a = vec.x - this.x;
+        double b = vec.y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
+    public double dst(double x, double y) {
+        double a = x - this.x;
+        double b = y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
     public Vec2d set(Vec2d vec) {
         this.x = vec.x;
         this.y = vec.y;

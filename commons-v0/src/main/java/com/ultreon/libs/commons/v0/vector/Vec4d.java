@@ -89,6 +89,22 @@ public class Vec4d implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v + this.w * v;
     }
 
+    public double dst(Vec4d vec) {
+        double a = vec.x - this.x;
+        double b = vec.y - this.y;
+        double c = vec.z - this.z;
+        double d = vec.w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
+    public double dst(double x, double y, double z, double w) {
+        double a = x - this.x;
+        double b = y - this.y;
+        double c = z - this.z;
+        double d = w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
     public Vec4d set(Vec4d vec) {
         this.x = vec.x;
         this.y = vec.y;

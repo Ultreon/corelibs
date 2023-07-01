@@ -89,6 +89,22 @@ public class Vec4i implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v + this.w * v;
     }
 
+    public double dst(Vec4i vec) {
+        int a = vec.x - this.x;
+        int b = vec.y - this.y;
+        int c = vec.z - this.z;
+        int d = vec.w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
+    public double dst(int x, int y, int z, int w) {
+        int a = x - this.x;
+        int b = y - this.y;
+        int c = z - this.z;
+        int d = w - this.w;
+        return Math.sqrt(a * a + b * b + c * c + d * d);
+    }
+
     public Vec4i set(Vec4i vec) {
         this.x = vec.x;
         this.y = vec.y;

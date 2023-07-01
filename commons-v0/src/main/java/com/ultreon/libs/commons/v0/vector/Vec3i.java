@@ -80,6 +80,20 @@ public class Vec3i implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v;
     }
 
+    public double dst(Vec3i vec) {
+        int a = vec.x - this.x;
+        int b = vec.y - this.y;
+        int c = vec.z - this.z;
+        return Math.sqrt(a * a + b * b + c * c);
+    }
+
+    public double dst(int x, int y, int z) {
+        int a = x - this.x;
+        int b = y - this.y;
+        int c = z - this.z;
+        return Math.sqrt(a * a + b * b + c * c);
+    }
+
     public Vec3i set(Vec3i vec) {
         this.x = vec.x;
         this.y = vec.y;

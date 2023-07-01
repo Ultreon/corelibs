@@ -80,6 +80,20 @@ public class Vec3d implements Externalizable, Cloneable {
         return this.x * v + this.y * v + this.z * v;
     }
 
+    public double dst(Vec3d vec) {
+        double a = vec.x - this.x;
+        double b = vec.y - this.y;
+        double c = vec.z - this.z;
+        return Math.sqrt(a * a + b * b + c * c);
+    }
+
+    public double dst(double x, double y, double z) {
+        double a = x - this.x;
+        double b = y - this.y;
+        double c = z - this.z;
+        return Math.sqrt(a * a + b * b + c * c);
+    }
+
     public Vec3d set(Vec3d vec) {
         this.x = vec.x;
         this.y = vec.y;

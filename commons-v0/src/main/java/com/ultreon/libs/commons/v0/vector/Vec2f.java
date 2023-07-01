@@ -71,6 +71,18 @@ public class Vec2f implements Externalizable, Cloneable {
         return this.x * v + this.y * v;
     }
 
+    public double dst(Vec2f vec) {
+        float a = vec.x - this.x;
+        float b = vec.y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
+    public double dst(float x, float y) {
+        float a = x - this.x;
+        float b = y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
     public Vec2f set(Vec2f vec) {
         this.x = vec.x;
         this.y = vec.y;

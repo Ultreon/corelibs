@@ -76,6 +76,18 @@ public class Vec2i implements Externalizable, Cloneable {
         return this.x * v + this.y * v;
     }
 
+    public double dst(Vec2i vec) {
+        int a = vec.x - this.x;
+        int b = vec.y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
+    public double dst(int x, int y) {
+        int a = x - this.x;
+        int b = y - this.y;
+        return Math.sqrt(a * a + b * b);
+    }
+
     public Vec2i set(Vec2i vec) {
         this.x = vec.x;
         this.y = vec.y;
