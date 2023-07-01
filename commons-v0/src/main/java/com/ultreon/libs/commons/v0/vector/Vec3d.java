@@ -338,11 +338,7 @@ public class Vec3d implements Externalizable, Cloneable {
 
     @Override
     public String toString() {
-        return "Vector4i{" +
-                "x=" + this.x +
-                ", y=" + this.y +
-                ", z=" + this.z +
-                '}';
+        return String.format("%f, %f, %f", this.x, this.y, this.z);
     }
 
     @Override

@@ -351,12 +351,7 @@ public class Vec4i implements Externalizable, Cloneable {
 
     @Override
     public String toString() {
-        return "Vector4i{" +
-                "x=" + this.x +
-                ", y=" + this.y +
-                ", z=" + this.z +
-                ", w=" + this.w +
-                '}';
+        return String.format("%d, %d, %d, %d", this.x, this.y, this.z, this.w);
     }
 
     @Override

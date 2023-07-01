@@ -286,10 +286,7 @@ public class Vec2d implements Externalizable, Cloneable {
 
     @Override
     public String toString() {
-        return "Vector2d{" +
-                "x=" + this.x +
-                ", y=" + this.y +
-                '}';
+        return String.format("%f, %f", this.x, this.y);
     }
 
     @Override

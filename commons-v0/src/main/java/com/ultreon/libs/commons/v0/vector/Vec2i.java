@@ -269,10 +269,7 @@ public class Vec2i implements Externalizable, Cloneable {
 
     @Override
     public String toString() {
-        return "Vector2i{" +
-                "x=" + this.x +
-                ", y=" + this.y +
-                '}';
+        return String.format("%d, %d", this.x, this.y);
     }
 
     @Override

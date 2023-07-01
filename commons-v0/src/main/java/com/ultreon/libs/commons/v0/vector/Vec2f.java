@@ -286,10 +286,7 @@ public class Vec2f implements Externalizable, Cloneable {
 
     @Override
     public String toString() {
-        return "Vector2f{" +
-                "x=" + this.x +
-                ", y=" + this.y +
-                '}';
+        return String.format("%f, %f", this.x, this.y);
     }
 
     @Override
