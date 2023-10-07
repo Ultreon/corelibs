@@ -382,6 +382,14 @@ public class Duration implements Comparable<Duration>, Serializable, Cloneable {
         return (long) this.getSeconds();
     }
 
+    public Duration plus(Duration duration) {
+        return new Duration(this.duration + duration.duration);
+    }
+
+    public Duration minus(Duration duration) {
+        return new Duration(this.duration - duration.duration);
+    }
+
     public BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(this.duration);
     }
