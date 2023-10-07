@@ -4,12 +4,12 @@ import com.ultreon.libs.datetime.v0.exceptions.InvalidOrderException;
 
 import java.io.Serializable;
 
-public class TimeSpan implements Serializable {
+public class TimeSpan implements Serializable, Cloneable {
     private DateTime from;
     private DateTime to;
 
     public TimeSpan(DateTime from, DateTime to) {
-        if (from.compareTo(to) > 0) throw new InvalidOrderException("Parameter ‘from’ is later than ‘to’.");
+        if (from.toEpochNano() > to.toEpochNano()) throw new InvalidOrderException("Parameter ‘from’ is later than ‘to’.");
 
         this.from = from;
         this.to = to;
@@ -20,7 +20,7 @@ public class TimeSpan implements Serializable {
     }
 
     public Duration toDuration() {
-        return new Duration(this.to.toEpochSeconds() - this.from.toEpochSeconds());
+        return Duration.ofNanoseconds(this.to.toEpochNano() - this.from.toEpochNano());
     }
 
     public DateTime getFrom() {
@@ -37,5 +37,14 @@ public class TimeSpan implements Serializable {
 
     public void setTo(DateTime to) {
         this.to = to;
+    }
+
+    @Override
+    public TimeSpan clone() {
+        try {
+            return (TimeSpan) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

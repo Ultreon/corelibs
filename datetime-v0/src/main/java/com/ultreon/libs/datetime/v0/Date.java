@@ -1,5 +1,6 @@
 package com.ultreon.libs.datetime.v0;
 
+import com.ultreon.libs.datetime.v0.exceptions.DateTimeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Objects;
 import static com.ultreon.libs.datetime.v0.MeteorologicalSeason.*;
 
 @SuppressWarnings("unused")
-public class Date implements Serializable, Comparable<Date> {
+public class Date implements Serializable, Comparable<Date>, Cloneable {
     private int day;
     private Month month;
     private int year;
@@ -28,15 +29,20 @@ public class Date implements Serializable, Comparable<Date> {
     }
 
     public Date(int day, int month, int year) {
-        this.day = day;
-        this.month = Month.from(month);
-        this.year = year;
+        this(day, Month.from(month), year);
     }
 
     public Date(int day, Month month, int year) {
+        checkDayOfMonth(day, month, year);
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+    static void checkDayOfMonth(int day, Month month, int year) {
+        int maxDays = month.getDays(year);
+        if (day < 1 || day > maxDays)
+            throw new DateTimeException("The day of " + month.name() + " should be between 1 and " + maxDays + " but got " + day);
     }
 
     /*************************************************************
@@ -53,14 +59,18 @@ public class Date implements Serializable, Comparable<Date> {
         return ((lo.toEpochDay() <= hi.toEpochDay()) && (hi.toEpochDay() >= lo.toEpochDay()));
     }
 
-    private long toEpochDay() {
+    public long toEpochDay() {
         LocalDate of = LocalDate.of(this.year, this.month.getIndex(), this.day);
         return of.toEpochDay();
     }
 
-    private long toEpochSecond() {
-        LocalDate of = LocalDate.of(this.year, this.month.getIndex(), this.day);
-        return of.toEpochDay() * 24 * 60 * 60;
+    public long toEpochSecond() {
+        DateTime of = this.getStart();
+        return of.toEpochSecond();
+    }
+
+    public long toEpochMilli() {
+        return this.toEpochSecond() * 1000;
     }
 
     @Override
@@ -82,6 +92,14 @@ public class Date implements Serializable, Comparable<Date> {
 
     public void setMonth(Month month) {
         this.month = month;
+    }
+
+    public int getMonthIndex() {
+        return this.month.getIndex();
+    }
+
+    public void setMonthIndex(int index) {
+        this.month = Month.from(index);
     }
 
     public int getYear() {
@@ -170,4 +188,13 @@ public class Date implements Serializable, Comparable<Date> {
         return this.day == date.day &&
                 this.month == date.month;
     }
+    @Override
+    public Date clone() {
+        try {
+            return (Date) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

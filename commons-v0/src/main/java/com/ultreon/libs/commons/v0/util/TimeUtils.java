@@ -1,6 +1,7 @@
 package com.ultreon.libs.commons.v0.util;
 
 import com.ultreon.libs.commons.v0.UtilityClass;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,11 @@ public final class TimeUtils extends UtilityClass {
     /**
      * @param duration the desired duration to format.
      * @return the formatted duration.
+     * @deprecated use date time library of CoreLibs instead.
      */
+    @NotNull
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval
     public static String formatDuration(long duration) {
         LocalDateTime g = LocalDateTime.ofEpochSecond(duration, 0, ZoneOffset.ofTotalSeconds(0));
         int minute = g.getMinute();
@@ -20,7 +25,12 @@ public final class TimeUtils extends UtilityClass {
         return formatDuration(minute, second, hourDouble);
     }
 
+    /**
+     * @deprecated use date time library of CoreLibs instead.
+     */
     @NotNull
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval
     public static String formatDuration(int minute, int second, double hourDouble) {
         hourDouble -= (double) minute / 60;
         hourDouble -= (double) second / 60 / 60;

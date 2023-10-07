@@ -1,15 +1,17 @@
 package com.ultreon.libs.datetime.v0;
 
+import com.ultreon.libs.datetime.v0.exceptions.DateTimeError;
+import com.ultreon.libs.datetime.v0.exceptions.DateTimeException;
+import org.jetbrains.annotations.ApiStatus;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
-import java.time.chrono.IsoChronology;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class DateTime implements Comparable<DateTime>, Serializable {
+public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
     private static final Duration DURATION = new Duration(0.0d);
     private int hour;
     private int minute;
@@ -18,6 +20,7 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     private int day;
     private int year;
     private Month month;
+    private int nano;
 
     public static DateTime current() {
         LocalDateTime dateTime = LocalDateTime.now();
@@ -28,17 +31,17 @@ public class DateTime implements Comparable<DateTime>, Serializable {
         int day = dateTime.getDayOfMonth();
         int month = dateTime.getMonthValue();
         int year = dateTime.getYear();
+        int nano = dateTime.getNano();
 
-        return new DateTime(day, month, year, hour, minute, second);
+        return new DateTime(day, month, year, hour, minute, second, nano);
     }
 
     public static boolean isLeapYear(int year) {
-        return IsoChronology.INSTANCE.isLeapYear(year);
+        return (year & 3) == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
-    public long toEpochSeconds() {
-        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
-        return localDateTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0));
+    public DateTime(DateTime dateTime) {
+        this(dateTime.day, dateTime.month, dateTime.year, dateTime.hour, dateTime.minute, dateTime.second, dateTime.nano);
     }
 
     public DateTime(Date date, Time time) {
@@ -50,15 +53,51 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     }
 
     public DateTime(int day, Month month, int year, int hour, int minute, int second) {
+        this(day, month, year, hour, minute, second, 0);
+    }
+
+    public DateTime(int day, int month, int year, int hour, int minute, int second, int nano) {
+        this(day, Month.from(month), year, hour, minute, second);
+    }
+
+    public DateTime(int day, Month month, int year, int hour, int minute, int second, int nano) {
+        if (second < 0 || second > 59) throw new DateTimeException("Second must be between 0 and 59");
+        if (minute < 0 || minute > 59) throw new DateTimeException("Minute must be between 0 and 59");
+        if (hour < 0 || hour > 59) throw new DateTimeException("Minute must be between 0 and 59");
+        if (nano < 0 || nano > 999_999_999) throw new DateTimeException("Nano must be between 0 and 999'999'999");
+        Date.checkDayOfMonth(day, month, year);
+        
         this.hour = hour;
         this.minute = minute;
         this.second = second;
         this.day = day;
         this.month = month;
         this.year = year;
+        this.nano = nano;
     }
 
-    /*************************************************************
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval
+    public long toEpochSeconds() {
+        return this.toEpochSecond();
+    }
+
+    public long toEpochSecond() {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0));
+    }
+
+    public long toEpochMilli() {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0)) + this.nano / 1_000_000;
+    }
+
+    public long toEpochNano() {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0)) + this.nano;
+    }
+
+    /**
      * Return flag meaning the object is between time1 and time2.
      *
      * @param lo low value.
@@ -67,9 +106,9 @@ public class DateTime implements Comparable<DateTime>, Serializable {
      * @throws NullPointerException if ‘lo’ is higher than ‘hi’.
      */
     public static boolean isBetween(DateTime lo, DateTime hi) {
-        if (lo.toEpochSeconds() > hi.toEpochSeconds()) throw new NullPointerException("‘lo’ is higher than ‘hi’");
+        if (lo.toEpochNano() > hi.toEpochNano()) throw new NullPointerException("‘lo’ is higher than ‘hi’");
 
-        return ((lo.toEpochSeconds() <= hi.toEpochSeconds()) && (hi.toEpochSeconds() >= lo.toEpochSeconds()));
+        return lo.toEpochNano() <= hi.toEpochNano() && hi.toEpochNano() >= lo.toEpochNano();
     }
 
     /**
@@ -87,7 +126,7 @@ public class DateTime implements Comparable<DateTime>, Serializable {
      * @param hour value to set.
      */
     public void setHour(int hour) {
-        if (hour < 0 || hour > 23) throw new IllegalArgumentException("Hour must be between 0 and 23");
+        if (hour < 0 || hour > 23) throw new DateTimeException("Hour must be between 0 and 23");
         this.hour = hour;
     }
 
@@ -101,7 +140,7 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     }
 
     public void setMinute(int minute) {
-        if (minute < 0 || minute > 59) throw new IllegalArgumentException("Minute must be between 0 and 23");
+        if (minute < 0 || minute > 59) throw new DateTimeException("Minute must be between 0 and 59");
         this.minute = minute;
     }
 
@@ -110,8 +149,17 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     }
 
     public void setSecond(int second) {
-        if (second < 0 || second > 59) throw new IllegalArgumentException("Second must be between 0 and 23");
+        if (second < 0 || second > 59) throw new DateTimeException("Second must be between 0 and 59");
         this.second = second;
+    }
+
+    public int getNano() {
+        return this.nano;
+    }
+
+    public void setNano(int nano) {
+        if (nano < 0 || nano > 999_999_999) throw new DateTimeException("Nano must be between 0 and 999'999'999");
+        this.nano = nano;
     }
 
     public int getDay() {
@@ -120,7 +168,7 @@ public class DateTime implements Comparable<DateTime>, Serializable {
 
     public void setDay(int day) {
         int days = this.getMonth().getDays(this.year);
-        if (this.minute < 1 || this.minute > days) throw new IllegalArgumentException("Minute must be between 1 and " + days);
+        if (this.minute < 1 || this.minute > days) throw new DateTimeException("Minute must be between 1 and " + days);
         this.day = day;
     }
 
@@ -149,19 +197,44 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     }
 
     public Time getTime() {
-        return new Time(this.hour, this.minute, this.second);
+        return new Time(this.hour, this.minute, this.second, this.nano);
+    }
+
+    public void setTime(Time time) {
+        this.hour = time.getHour();
+        this.minute = time.getMinute();
+        this.second = time.getSecond();
+        this.nano = time.getNano();
     }
 
     public Date getDate() {
         return new Date(this.day, this.month, this.year);
     }
 
+    public void getDate(Date date) {
+        this.year = date.getYear();
+        this.month = date.getMonth();
+        this.day = date.getDay();
+    }
+
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval
     public Duration getDuration() {
         return DURATION;
     }
 
+
+    public DayPeriod getDayPeriod() {
+        Time time = this.getTime();
+        if (DayPeriod.NIGHT.isWithin(time)) return DayPeriod.NIGHT;
+        if (DayPeriod.MORNING.isWithin(time)) return DayPeriod.MORNING;
+        if (DayPeriod.AFTERNOON.isWithin(time)) return DayPeriod.AFTERNOON;
+        if (DayPeriod.NIGHT.isWithin(time)) return DayPeriod.NIGHT;
+        throw new DateTimeError("Can't find valid day period.");
+    }
+    
     public LocalTime toLocalTime() {
-        return LocalTime.of(this.hour, this.minute, this.second);
+        return LocalTime.of(this.hour, this.minute, this.second, this.nano);
     }
 
     public LocalDate toLocalDate() {
@@ -169,29 +242,32 @@ public class DateTime implements Comparable<DateTime>, Serializable {
     }
 
     public LocalDateTime toLocalDateTime() {
-        return LocalDateTime.of(this.year, this.month.getIndex(), this.year, this.year, this.hour, this.minute, this.second);
+        return LocalDateTime.of(this.year, this.month.getIndex(), this.day, this.hour, this.minute, this.second, this.nano);
     }
 
     @Override
     public int compareTo(DateTime o) {
-        return Long.compare(this.toEpochSeconds(), o.toEpochSeconds());
+        return Long.compare(this.toEpochNano(), o.toEpochNano());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getHour(), this.getMinute(), this.getSecond(), this.getDay(), this.getMonthIndex(), this.getYear());
+        return Long.hashCode(this.toEpochNano());
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
-        DateTime dateTime = (DateTime) o;
-        return this.getHour() == dateTime.getHour() &&
-                this.getMinute() == dateTime.getMinute() &&
-                this.getSecond() == dateTime.getSecond() &&
-                this.getDay() == dateTime.getDay() &&
-                this.getMonthIndex() == dateTime.getMonthIndex() &&
-                this.getYear() == dateTime.getYear();
+        return this.toEpochNano() == ((DateTime) o).toEpochNano();
+    }
+
+    @Override
+    public DateTime clone() {
+        try {
+            return (DateTime) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
     }
 }
