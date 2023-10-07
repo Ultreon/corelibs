@@ -370,6 +370,18 @@ public class Duration implements Comparable<Duration>, Serializable, Cloneable {
         return (float) this.duration;
     }
 
+    public long toNanos() {
+        return (long) this.getNanoseconds();
+    }
+
+    public long toMillis() {
+        return (long) this.getMilliseconds();
+    }
+
+    public long toSeconds() {
+        return (long) this.getSeconds();
+    }
+
     public BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(this.duration);
     }
