@@ -1,7 +1,6 @@
 package com.ultreon.libs.commons.v0.size;
 
 import java.awt.*;
-import java.util.Objects;
 
 public final class IntSize {
     private final int width;

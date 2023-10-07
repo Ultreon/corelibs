@@ -4,8 +4,7 @@ import com.ultreon.libs.datetime.v0.exceptions.DateTimeError;
 import com.ultreon.libs.datetime.v0.exceptions.DateTimeException;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.*;
 
 @SuppressWarnings("unused")
 public class Time implements Comparable<Time>, Serializable, Cloneable {
@@ -38,6 +37,30 @@ public class Time implements Comparable<Time>, Serializable, Cloneable {
         this.minute = minute;
         this.second = second;
         this.nano = nano;
+    }
+
+    public static Time ofSeconds(long seconds) {
+        return ofNanos(seconds * 1_000_000_000L);
+    }
+
+    public static Time ofMillis(long millis) {
+        return ofNanos(millis * 1_000_000L);
+    }
+
+    public static Time ofNanos(long nanos) {
+        int nano = (int) (nanos % 1_000_000_000);
+        int second = (int) (nanos / 1_000_000_000L % 60);
+        int minute = (int) (nanos / 60_000_000_000L % 60);
+        int hour = (int) (nanos / 3_600_000_000_000L % 60);
+        return new Time(hour, minute, second, nano);
+    }
+
+    public static Time ofLocalTime(LocalTime lt) {
+        return new Time(lt.getHour(), lt.getMinute(), lt.getSecond(), lt.getNano());
+    }
+
+    public static Time ofInstant(Instant lt, ZoneOffset offset) {
+        return DateTime.ofInstant(lt, offset).getTime();
     }
 
     public long toNanos() {

@@ -1,7 +1,5 @@
 package com.ultreon.libs.commons.v0.size;
 
-import java.util.Objects;
-
 public final class DoubleSize {
     private final double width;
     private final double height;

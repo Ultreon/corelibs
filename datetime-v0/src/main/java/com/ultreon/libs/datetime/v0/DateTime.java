@@ -5,10 +5,7 @@ import com.ultreon.libs.datetime.v0.exceptions.DateTimeException;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
 
 @SuppressWarnings("unused")
 public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
@@ -66,7 +63,7 @@ public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
         if (hour < 0 || hour > 59) throw new DateTimeException("Minute must be between 0 and 59");
         if (nano < 0 || nano > 999_999_999) throw new DateTimeException("Nano must be between 0 and 999'999'999");
         Date.checkDayOfMonth(day, month, year);
-        
+
         this.hour = hour;
         this.minute = minute;
         this.second = second;
@@ -74,6 +71,40 @@ public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
         this.month = month;
         this.year = year;
         this.nano = nano;
+    }
+
+    public static DateTime ofEpochSecond(long second, ZoneOffset offset) {
+        return ofLocalDateTime(LocalDateTime.ofEpochSecond(second, 0, offset));
+    }
+
+    public static DateTime ofEpochMilli(long milli, ZoneOffset offset) {
+        return ofLocalDateTime(LocalDateTime.ofEpochSecond(milli / 1000, (int) ((milli % 1000) * 1_000_000), offset));
+    }
+
+    public static DateTime ofEpochNano(long nano, ZoneOffset offset) {
+        return ofLocalDateTime(LocalDateTime.ofEpochSecond(nano / 1_000_000_000, (int) ((nano % 1_000_000_000)), offset));
+    }
+
+    public static DateTime ofLocalDateTime(LocalDateTime ldt) {
+        return new DateTime(ldt.getDayOfMonth(), ldt.getMonthValue(), ldt.getYear(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+    }
+
+    public static DateTime ofInstant(Instant lt, ZoneOffset offset) {
+        return ofEpochMilli(lt.toEpochMilli(), offset);
+    }
+
+    /**
+     * Return flag meaning the object is between time1 and time2.
+     *
+     * @param lo low value.
+     * @param hi high value.
+     * @return true if the object is between time1 and time2.
+     * @throws NullPointerException if ‘lo’ is higher than ‘hi’.
+     */
+    public static boolean isBetween(DateTime lo, DateTime hi) {
+        if (lo.toEpochNano() > hi.toEpochNano()) throw new NullPointerException("‘lo’ is higher than ‘hi’");
+
+        return lo.toEpochNano() <= hi.toEpochNano() && hi.toEpochNano() >= lo.toEpochNano();
     }
 
     @Deprecated
@@ -97,18 +128,19 @@ public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
         return localDateTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0)) + this.nano;
     }
 
-    /**
-     * Return flag meaning the object is between time1 and time2.
-     *
-     * @param lo low value.
-     * @param hi high value.
-     * @return true if the object is between time1 and time2.
-     * @throws NullPointerException if ‘lo’ is higher than ‘hi’.
-     */
-    public static boolean isBetween(DateTime lo, DateTime hi) {
-        if (lo.toEpochNano() > hi.toEpochNano()) throw new NullPointerException("‘lo’ is higher than ‘hi’");
+    public long toEpochSecond(ZoneOffset offset) {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(offset);
+    }
 
-        return lo.toEpochNano() <= hi.toEpochNano() && hi.toEpochNano() >= lo.toEpochNano();
+    public long toEpochMilli(ZoneOffset offset) {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(offset) + this.nano / 1_000_000;
+    }
+
+    public long toEpochNano(ZoneOffset offset) {
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(this.year, this.month.getIndex(), this.day), LocalTime.of(this.hour, this.minute, this.second));
+        return localDateTime.toEpochSecond(offset) + this.nano;
     }
 
     /**
@@ -232,7 +264,7 @@ public class DateTime implements Comparable<DateTime>, Serializable, Cloneable {
         if (DayPeriod.NIGHT.isWithin(time)) return DayPeriod.NIGHT;
         throw new DateTimeError("Can't find valid day period.");
     }
-    
+
     public LocalTime toLocalTime() {
         return LocalTime.of(this.hour, this.minute, this.second, this.nano);
     }

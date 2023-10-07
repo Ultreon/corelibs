@@ -4,9 +4,7 @@ import com.ultreon.libs.datetime.v0.exceptions.DateTimeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.chrono.Era;
 import java.time.chrono.IsoChronology;
 import java.util.Objects;
@@ -43,6 +41,22 @@ public class Date implements Serializable, Comparable<Date>, Cloneable {
         int maxDays = month.getDays(year);
         if (day < 1 || day > maxDays)
             throw new DateTimeException("The day of " + month.name() + " should be between 1 and " + maxDays + " but got " + day);
+    }
+
+    public static Date ofEpochSecond(long second) {
+        return ofLocalDate(LocalDate.ofEpochDay(second / 86_400));
+    }
+
+    public static Date ofEpochDay(long day) {
+        return ofLocalDate(LocalDate.ofEpochDay(day));
+    }
+
+    public static Date ofLocalDate(LocalDate ld) {
+        return new Date(ld.getDayOfMonth(), ld.getMonthValue(), ld.getYear());
+    }
+
+    public static Date ofInstant(Instant lt, ZoneOffset offset) {
+        return DateTime.ofInstant(lt, offset).getDate();
     }
 
     /*************************************************************
