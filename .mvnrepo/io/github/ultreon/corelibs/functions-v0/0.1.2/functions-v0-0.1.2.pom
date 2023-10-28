@@ -5,4 +5,12 @@
   <groupId>io.github.ultreon.corelibs</groupId>
   <artifactId>functions-v0</artifactId>
   <version>0.1.2</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
 </project>
