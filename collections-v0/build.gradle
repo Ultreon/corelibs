@@ -1,4 +1,4 @@
-'0.1.0'
+version rootProject.version
 
 dependencies {
     implementation project(":functions-v0")
