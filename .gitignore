@@ -351,3 +351,5 @@ Temporary Items
 .apdisk
 
 /.idea/vcs.xml
+
+!/.mvnrepo/**/*.jar
