@@ -3,8 +3,7 @@ name: Deploy Javadoc
 on:
   release:
     types:
-      - released
-      - edited
+      - published
 
 jobs:
   publish:
