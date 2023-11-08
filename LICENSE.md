@@ -30,7 +30,7 @@ Copyright © 2022-2023 Qboi123 <qboiwastaken@gmail.com>
    Moving content from private to public needs permission of the project owner that owns the private project.
 
 4. **Mixins:**  
-   Mixins are allowed to be used to make changes on runtime level. As long the file itself will be left unchanged.  
+   Mixins are allowed to be used to make changes on runtime level. As long the file itself will be value unchanged.  
    AND it's not allowed to export the mixins.
 
 ### §3 - Notes:

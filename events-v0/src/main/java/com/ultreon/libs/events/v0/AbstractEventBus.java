@@ -10,13 +10,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-@Deprecated
 @SuppressWarnings("unchecked")
 public abstract class AbstractEventBus<T extends AbstractEvent> {
-    @Deprecated()
     protected static final Predicate<Method> classPredicate;
 
-    @Deprecated()
     protected static final Predicate<Method> instancePredicate;
 
     static {
@@ -26,29 +23,22 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         instancePredicate = isHandler.and(isSubscriber).and((method) -> !Modifier.isStatic(method.getModifiers()));
     }
 
-    @Deprecated()
     public List<AbstractSubscription> subscriptions = new ArrayList<>();
-    @Deprecated()
     public Map<Long, Class<? extends AbstractEvent>> classMap = new HashMap<>();
 
-    @Deprecated()
     public final Map<Class<? extends AbstractEvent>, CopyOnWriteArraySet<Pair<Object, Method>>> eventToMethod = new HashMap<>();
-    @Deprecated()
     public final Map<Pair<Object, Method>, CopyOnWriteArraySet<Class<? extends AbstractEvent>>> methodToEvent = new HashMap<>();
 
-    @Deprecated()
     public AbstractEventBus() {
 
     }
 
-    @Deprecated()
     private static boolean isSubscribing(Method method) {
 //        LogManager.getLogger("Subscribe-Check").info(method.getDeclaringClass().getName() + "." + method.getName());
 
         return method.isAnnotationPresent(SubscribeEvent.class);
     }
 
-    @Deprecated()
     private static boolean isSubscriber(Method method) {
         Class<?>[] parameterTypes = method.getParameterTypes();
         if (parameterTypes.length == 1) {
@@ -58,7 +48,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         return false;
     }
 
-    @Deprecated()
     public <E extends T> boolean publish(E event) {
         if (!this.eventToMethod.containsKey(event.getClass())) {
             return false;
@@ -77,7 +66,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         return event instanceof ICancellable && ((ICancellable) event).isCancelled();
     }
 
-    @Deprecated()
     public void subscribe(Class<?> clazz) {
         this.loopDeclaredMethods(clazz, (method) -> {
             // Get types and values.
@@ -86,7 +74,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     public void subscribe(Object o) {
         this.loopMethods(o, (method) -> {
             // Get types and values.
@@ -95,7 +82,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     public void unsubscribe(Class<? extends T> event, Class<?> clazz) {
         this.loopDeclaredMethods(clazz, (method) -> {
             // Get and check event.
@@ -111,7 +97,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     public void unsubscribe(Class<? extends T> event, Object o) {
         this.loopMethods(o, (method) -> {
             // Get types and values.
@@ -127,7 +112,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     public void unsubscribe(Class<?> clazz) {
         this.loopDeclaredMethods(clazz, (method) -> {
             // Get and check event.
@@ -142,7 +126,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     public void unsubscribe(Object o) {
         this.loopMethods(o, (method) -> {
             // Get types and values.
@@ -157,19 +140,16 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         });
     }
 
-    @Deprecated()
     private void loopDeclaredMethods(Class<?> clazz, Consumer<Method> consumer) {
         // Loop declared methods.
         this.loopMethods0(clazz.getDeclaredMethods(), classPredicate, consumer);
     }
 
-    @Deprecated()
     private void loopMethods(Object o, Consumer<Method> consumer) {
         // Loop methods.
         this.loopMethods0(o.getClass().getMethods(), instancePredicate, consumer);
     }
 
-    @Deprecated()
     private void loopMethods0(Method[] methods, Predicate<Method> predicate, Consumer<Method> consumer) {
         // Check all methods for event subscribers.
         for (Method method : methods) {
@@ -182,7 +162,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         }
     }
 
-    @Deprecated()
     private void removeHandlers(Class<? extends AbstractEvent> event, @Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
         if (!this.eventToMethod.containsKey(event)) {
@@ -201,7 +180,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         this.eventToMethod.get(event).remove(pair);
     }
 
-    @Deprecated()
     private void removeAllEvents(@Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
         if (!this.methodToEvent.containsKey(pair)) {
@@ -215,7 +193,6 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         this.methodToEvent.remove(pair);
     }
 
-    @Deprecated()
     protected void addHandlers(Class<? extends AbstractEvent> event, @Nullable Object obj, Method method) {
         Pair<Object, Method> pair = new Pair<>(obj, method);
         if (!this.eventToMethod.containsKey(event)) {
@@ -228,23 +205,17 @@ public abstract class AbstractEventBus<T extends AbstractEvent> {
         this.methodToEvent.get(pair).add(event);
     }
 
-    @Deprecated
     public static abstract class AbstractSubscription {
-        @Deprecated
         protected abstract void onRemove();
 
-        @Deprecated
         public abstract <T extends AbstractEvent> Collection<Subscriber<T>> getSubscribers(Class<T> clazz);
 
-        @Deprecated
         public abstract long id();
 
-        @Deprecated
         public void unsubscribe() {
             this.onRemove();
         }
 
-        @Deprecated
         @SuppressWarnings("unchecked")
         <T extends AbstractEvent> void onPublish(T event) {
             Collection<Subscriber<T>> handlers = this.getSubscribers((Class<T>) event.getClass());
