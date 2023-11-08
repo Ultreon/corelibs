@@ -353,3 +353,4 @@ Temporary Items
 /.idea/vcs.xml
 
 !/.mvnrepo/**/*.jar
+/.vscode/settings.json
