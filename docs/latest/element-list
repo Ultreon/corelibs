@@ -2,9 +2,11 @@ com.ultreon.libs.collections.v0.exceptions
 com.ultreon.libs.collections.v0.iterator
 com.ultreon.libs.collections.v0.list
 com.ultreon.libs.collections.v0.maps
+com.ultreon.libs.collections.v0.tables
 com.ultreon.libs.collections.v0.util
 com.ultreon.libs.commons.v0
 com.ultreon.libs.commons.v0.exceptions
+com.ultreon.libs.commons.v0.platform.win32
 com.ultreon.libs.commons.v0.size
 com.ultreon.libs.commons.v0.tuple
 com.ultreon.libs.commons.v0.util
