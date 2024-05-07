@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="io.github.ultreon.corelibs.corelibs.collections-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.commons-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.crash-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.datetime-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.events-v1.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.functions-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.registries-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.resources-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.text-v0.main" target="1.8" />
+      <module name="io.github.ultreon.corelibs.corelibs.translations-v0.main" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

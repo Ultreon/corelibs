@@ -1,18 +1,20 @@
-apply plugin: 'maven-publish'
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
 
-group 'io.github.ultreon.corelibs'
+group 'dev.ultreon.corelibs'
 version '0.3.0'
 
 mkdir("${rootProject.projectDir}/.mvnrepo")
-apply plugin: 'java'
-apply plugin: "java-library"
 
 subprojects {
     apply plugin: 'java'
     apply plugin: "java-library"
     apply plugin: 'maven-publish'
 
-    group 'io.github.ultreon.corelibs'
+    group 'dev.ultreon.corelibs'
 
     archivesBaseName = "corelibs-$project.name"
 
