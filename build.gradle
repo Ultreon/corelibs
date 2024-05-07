@@ -9,7 +9,7 @@ version '0.3.0'
 
 mkdir("${rootProject.projectDir}/.mvnrepo")
 
-subprojects {
+allprojects {
     apply plugin: 'java'
     apply plugin: "java-library"
     apply plugin: 'maven-publish'
@@ -73,10 +73,6 @@ subprojects {
     tasks.withType(GenerateModuleMetadata) {
         enabled = false
     }
-}
-
-tasks.withType(GenerateModuleMetadata) {
-    enabled = false
 }
 
 afterEvaluate {
