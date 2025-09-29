@@ -1,3 +1,5 @@
+import static java.lang.System.getenv
+
 plugins {
     id 'java'
     id 'java-library'
@@ -16,9 +18,9 @@ allprojects {
 
     group 'dev.ultreon.corelibs'
 
-    archivesBaseName = "corelibs-$project.name"
-
-    def admin = rootProject.hasProperty('sonatypeUsername')
+    base {
+        archivesName = "corelibs-$project.name"
+    }
 
     repositories {
         mavenCentral()
@@ -60,16 +62,27 @@ allprojects {
 
         publishing {
             repositories {
-                repositories {
-                    maven {
-                        url = uri("https://gitlab.com/api/v4/projects/60097152/packages/maven")
-                        credentials(HttpHeaderCredentials) {
-                            name = "Private-Token"
-                            value = findProperty("gitLabPrivateToken").toString() // the variable resides in $GRADLE_USER_HOME/gradle.properties
-                        }
-                        authentication {
-                            header(HttpHeaderAuthentication)
-                        }
+                maven {
+                    name = "UltreonMavenReleases"
+                    url = uri("https://maven.ultreon.dev/releases")
+                    credentials {
+                        username = findProperty("ultreonmvn.name") ?: getenv("ULTREON_MVN_NAME")
+                        password = findProperty("ultreonmvn.secret") ?: getenv("ULTREON_MVN_SEC")
+                    }
+                    authentication {
+                        create("basic", BasicAuthentication)
+                    }
+                }
+
+                maven {
+                    name = "UltreonMavenSnapshots"
+                    url = uri("https://maven.ultreon.dev/snapshots")
+                    credentials {
+                        username = findProperty("ultreonmvn.name") ?: getenv("ULTREON_MVN_NAME")
+                        password = findProperty("ultreonmvn.secret") ?: getenv("ULTREON_MVN_SEC")
+                    }
+                    authentication {
+                        create("basic", BasicAuthentication)
                     }
                 }
             }
@@ -100,7 +113,7 @@ afterEvaluate {
             subproject.sourceSets.main.compileClasspath
         })
         (options as StandardJavadocDocletOptions).links(
-            "https://javadoc.io/doc/org.jetbrains/annotations/$annotations_version",
+                "https://javadoc.io/doc/org.jetbrains/annotations/$annotations_version",
         )
     }
 }

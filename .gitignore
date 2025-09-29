@@ -354,3 +354,6 @@ Temporary Items
 
 !/.mvnrepo/**/*.jar
 /.vscode/settings.json
+
+.idea/
+.gradle/
