@@ -46,8 +46,8 @@ allprojects {
     }
 
     compileJava {
-        sourceCompatibility "1.8"
-        targetCompatibility "1.8"
+        sourceCompatibility "11"
+        targetCompatibility "11"
     }
 
     jar.archiveBaseName = "corelibs-$project.name"
