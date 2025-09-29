@@ -100,23 +100,18 @@ allprojects {
     }
 }
 
-afterEvaluate {
-    subprojects {
-        project.configurations.compileClasspath.resolve() // Only in a configuration block
-    }
-    javadoc {
-        source(subprojects.collect { subproject ->
-            subproject.sourceSets.main.allJava.sourceDirectories
-        })
-        title = "CoreLibs"
-        description = "CoreLibs is the core library collection for Ultreon Team projects."
-        setDestinationDir(file("$rootProject.projectDir/build/docs/javadoc"))
-        // Configure the classpath
-        classpath = files(subprojects.collect { subproject ->
-            subproject.sourceSets.main.compileClasspath
-        })
-        (options as StandardJavadocDocletOptions).links(
-                "https://javadoc.io/doc/org.jetbrains/annotations/$annotations_version",
-        )
-    }
+javadoc {
+    source(subprojects.collect { subproject ->
+        subproject.sourceSets.main.allJava.sourceDirectories
+    })
+    title = "CoreLibs"
+    description = "CoreLibs is the core library collection for Ultreon Team projects."
+    setDestinationDir(file("$rootProject.projectDir/build/docs/javadoc"))
+    // Configure the classpath
+    classpath = files(subprojects.collect { subproject ->
+        subproject.sourceSets.main.compileClasspath
+    })
+    (options as StandardJavadocDocletOptions).links(
+            "https://javadoc.io/doc/org.jetbrains/annotations/$annotations_version",
+    )
 }
