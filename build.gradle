@@ -33,8 +33,6 @@ allprojects {
         implementation "org.jetbrains:annotations:$annotations_version"
     }
 
-    configurations.compileClasspath.resolve() // Only in a configuration block
-
     processResources {
         from file("$rootProject.projectDir/LICENSE.md")
     }
@@ -103,6 +101,9 @@ allprojects {
 }
 
 afterEvaluate {
+    subprojects {
+        project.configurations.compileClasspath.resolve() // Only in a configuration block
+    }
     javadoc {
         source(subprojects.collect { subproject ->
             subproject.sourceSets.main.allJava.sourceDirectories
